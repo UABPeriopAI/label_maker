@@ -1,206 +1,63 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Label Maker
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+**Label Maker** is a tool designed to automatically generate and manage labels for your perioperative data. It aims to streamline the data annotation process for AI research and development by providing a flexible command‑line interface and configurable parameters.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+---
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Table of Contents
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
-```
-GenerativeCategorization
-├─ .devcontainer
-│  ├─ Dockerfile
-│  ├─ add-notice.sh
-│  ├─ devcontainer.json
-│  └─ noop.txt
-├─ .streamlit
-│  └─ config.toml
-├─ CategoryEvaluator
-│  ├─ confidence_intervals.py
-│  ├─ metrics_report.md
-│  └─ workers
-│     ├─ __init__.py
-│     ├─ class_balance_checker.py
-│     ├─ data_loader.py
-│     ├─ evaluator.py
-│     ├─ main.py
-│     ├─ merge_handler.py
-│     └─ mergers
-│        ├─ __init__.py
-│        ├─ base_merger.py
-│        ├─ exact_merger.py
-│        └─ fuzzy_merger.py
-├─ Docker
-│  └─ startup.sh
-├─ LabeLMaker
-│  ├─ Categorizer.py
-│  ├─ Fewshot.py
-│  ├─ Manyshot.py
-│  ├─ Zeroshot.py
-│  ├─ __init__.py
-│  └─ utils
-│     ├─ __init__.py
-│     ├─ categorize_handler.py
-│     ├─ category.py
-│     ├─ dedup_RyanC.py
-│     ├─ dedup_conflicts.py
-│     ├─ file_manager.py
-│     ├─ normalize_text.py
-│     └─ page_renderer.py
-├─ LabeLMaker_config
-│  ├─ __init__.py
-│  └─ config.py
-├─ Makefile
-├─ PlanForWebInterface.md
-├─ README.md
-├─ Tests
-│  ├─ CA_Grants
-│  │  ├─ fewshot_test_ca_data.py
-│  │  ├─ fewshot_test_ca_script.py
-│  │  ├─ zeroshot_test_ca_data.py
-│  │  └─ zeroshot_test_ca_script.py
-│  ├─ COVIDSentiments
-│  │  ├─ EvalCovidResult_FS.py
-│  │  ├─ EvalCovidResults_FS.ipynb
-│  │  ├─ EvalCovidResults_MS.ipynb
-│  │  ├─ EvalCovidResults_ZS.ipynb
-│  │  ├─ Merge_FS.py
-│  │  ├─ Merge_MS.py
-│  │  └─ Merge_ZS.py
-│  ├─ DifficultAirways
-│  │  └─ concatenate_report_strings.py
-│  ├─ MedicalTextClassification
-│  │  ├─ EvalMedTextResults_FS.ipynb
-│  │  ├─ EvalMedTextResults_ZS.ipynb
-│  │  ├─ Merge_FS.py
-│  │  └─ Merge_ZS.py
-│  ├─ PerformanceComparisons
-│  │  └─ CA_Research
-│  │     ├─ EvalCAResults_FS.ipynb
-│  │     └─ EvalCAResults_ZS.ipynb
-│  ├─ __init__.py
-│  ├─ fewshot_test_data.py
-│  ├─ fewshot_test_script.py
-│  ├─ zeroshot_test_data.py
-│  └─ zeroshot_test_script.py
-├─ app
-│  ├─ __init__.py
-│  └─ v01
-│     ├─ __init__.py
-│     └─ schemas.py
-├─ assets
-│  ├─ gencat_fewshot.prompty
-│  └─ gencat_zeroshot.prompty
-├─ docs
-│  ├─ LabeLMaker
-│  │  ├─ data.md
-│  │  ├─ generate.md
-│  │  ├─ main.md
-│  │  ├─ prompts.md
-│  │  └─ utils.md
-│  ├─ dev_requirements.txt
-│  ├─ diagrams
-│  │  └─ plantUML
-│  │     └─ initialDesign.wsd
-│  ├─ index.md
-│  ├─ run_aider.sh
-│  ├─ serve_docs.sh
-│  └─ src_setup.sh
-├─ explorations
-│  ├─ Convert_Sentiment_Categories.py
-│  ├─ just_ada_streamlit.py
-│  └─ prettyConfMats.py
-├─ llm_utils
-│  ├─ .devcontainer
-│  │  ├─ Dockerfile
-│  │  ├─ add-notice.sh
-│  │  ├─ devcontainer.json
-│  │  └─ noop.txt
-│  ├─ .streamlit
-│  │  └─ config.toml
-│  ├─ Docker
-│  │  └─ startup.sh
-│  ├─ Makefile
-│  ├─ README.md
-│  ├─ __init__.py
-│  ├─ aiweb_common
-│  │  ├─ ObjectFactory.py
-│  │  ├─ UML
-│  │  │  ├─ base_classes.png
-│  │  │  ├─ classes.png
-│  │  │  └─ packages.png
-│  │  ├─ WorkflowHandler.py
-│  │  ├─ __init__.py
-│  │  ├─ fastapi
-│  │  │  ├─ __init__.py
-│  │  │  ├─ helper_apis.py
-│  │  │  └─ schemas.py
-│  │  ├─ file_operations
-│  │  │  ├─ DocxCreator.py
-│  │  │  ├─ UploadManager.py
-│  │  │  ├─ __init__.py
-│  │  │  ├─ file_handling.py
-│  │  │  └─ text_format.py
-│  │  ├─ generate
-│  │  │  ├─ AugmentedResponse.py
-│  │  │  ├─ AugmentedServicer.py
-│  │  │  ├─ ChatResponse.py
-│  │  │  ├─ ChatSchemas.py
-│  │  │  ├─ ChatServicer.py
-│  │  │  ├─ PromptAssembler.py
-│  │  │  ├─ PromptyResponse.py
-│  │  │  ├─ PromptyServicer.py
-│  │  │  ├─ QueryInterface.py
-│  │  │  ├─ Response.py
-│  │  │  ├─ SingleResponse.py
-│  │  │  ├─ SingleResponseServicer.py
-│  │  │  └─ __init__.py
-│  │  ├─ resource
-│  │  │  ├─ NIHRePORTERInterface.py
-│  │  │  ├─ PubMedInterface.py
-│  │  │  ├─ PubMedQuery.py
-│  │  │  ├─ __init__.py
-│  │  │  └─ default_resource_config.py
-│  │  └─ streamlit
-│  │     ├─ BYOKLogin.py
-│  │     ├─ __init__.py
-│  │     └─ streamlit_common.py
-│  ├─ docker-compose.yml
-│  ├─ docs
-│  │  └─ run_aider.sh
-│  ├─ requirements.txt
-│  ├─ setup.py
-│  ├─ test_output.csv
-│  └─ workspace.code-workspace
-├─ logs
-├─ mkdocs.yml
-├─ out
-│  └─ docs
-│     └─ diagrams
-│        └─ plantUML
-│           └─ initialDesign
-│              └─ initialDesign.png
-├─ pyproject.toml
-├─ requirements.in
-├─ requirements.txt
-├─ setup.py
-├─ user_interface
-│  ├─ CategoryEvaluator_app.py
-│  ├─ LabeLMaker_app.py
-│  ├─ __init__.py
-│  └─ mapping_test.py
-└─ workspace.code-workspace
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
-```
+---
+
+## Features
+
+- **Automated Label Generation:** Quickly generate labels for datasets used in perioperative AI analysis.
+- **Configurable Options:** Adjust label parameters with a simple configuration file.
+- **Multiple Interfaces:** Run the tool from the terminal, streamlit, or with fastapi
+- **Standardized Output:** Export labels in formats that are easy to integrate with downstream machine learning pipelines.
+
+---
+
+## Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/UABPeriopAI/label_maker.git
+   ```
+
+...
+
+
+
+
+## Configuration
+Label Maker uses a configuration file (e.g., config.yaml) to control various label settings. In this file you can specify:
+
+ - **Label types or classes**
+ - **Formatting options**
+ - **Output file format (CSV, JSON, etc.)**
+Adjust the file as needed to match your dataset and project requirements.
+
+## Contributing
+Contributions are welcome! If you’d like to help improve Label Maker, please follow these steps:
+
+ 1. Fork the repository.
+ 2. Create a new branch for your feature or bug fix.
+ 3. Commit your changes with clear messages.
+ 4. Push your branch and open a pull request.
+For further guidelines, please see our CONTRIBUTING.md file (if available).
+
+## License
+This project is licensed under the MIT License – see the LICENSE file for details.
+
+## Acknowledgments
+Thanks to the UAB PeriopAI team for support and inspiration.
+Appreciation to any open‑source projects and tutorials that influenced the design of Label Maker.
