@@ -127,9 +127,9 @@ class Config:
     ---                
                 
     **Categorize data using AI**
-                
-    _Under health system policy, use with patient data requires additional approval. Contact rmelvin@uabmc.edu_
-    All submissions are recorded for potential review.
+    Brought to you by the Perioperative Data Science Team at UAB            
+    _Not recommended for use with protected patient data_
+
     
     ---
                 

@@ -38,8 +38,8 @@ setup(
     description="Using generative AI and machine learning to categorize text",
     author="The Perioperative Data Science Team at The University of Alabama at Birmingham",
     author_email="ryangodwin@uabmc.edu",
-    url="https://anes-vstf.anesthesiology.uab.edu/tfs/DefaultCollection/Data%20Science/_git/GenerativeCategorization",
-    python_requires=">=3.8",
+    url="https://github.com/UABPeriopAI/label_maker.git",
+    python_requires=">=3.11",
     packages=find_packages(),  # only look in directores with __init__.py
     install_requires=[required_packages],
     extras_require={"dev": docs_packages + style_packages, "docs": docs_packages},

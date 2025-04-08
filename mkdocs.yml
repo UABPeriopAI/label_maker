@@ -7,7 +7,7 @@ nav:
   - Workflows:
     - Main: LabeLMaker/workflow.md
   - Generative Categorizer:
-    - Label Maker Handler: LabeLMaker/label_maker_handler.md
+    - Label Maker Handler: LabeLMaker/streamlit_interface.md
     - Categorize:
       - Categorizer: LabeLMaker/Categorize/categorizer.md
       - Zeroshot : LabeLMaker/Categorize/zeroshot.md
@@ -26,7 +26,7 @@ nav:
   - LabeLMaker_config:
     - Config: LabeLMaker_Config/config.md
 
-  - llm_utils: '!include ./llm_utils/mkdocs.yml'
+  #- llm_utils: '!include ./llm_utils/mkdocs.yml'
 
 theme:
   name: readthedocs
@@ -35,11 +35,11 @@ plugins:
   - monorepo:
       submodules:
         - path: llm_utils
-          repo_url: ''
+          repo_url: 'https://github.com/UABPeriopAI/llm_utils'
   - mkdocstrings:
       handlers:
         python:
-          paths: [LabeLMaker, LabeLMaker_config, user_interface, llm_utils]  # search packages in these folders
+          paths: [LabeLMaker, LabeLMaker_config, user_interface]  # search packages in these folders
 watch:
   - .  # reload docs for any file changes
 use_directory_urls: false

@@ -1,7 +1,7 @@
 ## Documentation
 
 - [Workflow](LabeLMaker/workflow.md): main workflows.
-- [Label Maker](LabeLMaker/label_maker_handler.md): documentation of the handler for all three tabs.
+- [Label Maker](LabeLMaker/streamlit_interface.md): documentation of the handler for all three tabs.
 - **Categorize**: Documentation for categorization step
     + [Categorizer](LabeLMaker/Categorize/categorizer.md)
     + [Zero-shot](LabeLMaker/Categorize/zeroshot.md)

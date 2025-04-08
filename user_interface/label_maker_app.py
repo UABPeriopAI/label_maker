@@ -23,7 +23,7 @@ def main():
     st.title("🏷️ Label maker 🤖")
     st.markdown(Config.HEADER_MARKDOWN)
     ui = UIHelper()
-    cat_app = CategorizeHandler(ui, azure_key=Config.AZURE_DOCAI_KEY)
+    cat_app = CategorizeHandler(ui, azure_key=Config.AZURE_DOCAI_COMPATIBLE_KEY)
     eval_app = EvaluateHandler(ui)
     # Tabs for single vs. multiple file uploads
     tab1, tab2, tab3 = st.tabs(
