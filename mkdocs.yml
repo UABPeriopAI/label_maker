@@ -1,0 +1,45 @@
+# mkdocs.yml
+site_name: Label Maker
+site_url: https://sites.uab.edu/periop-datascience/
+repo_url: https://github.com/uabperiopai
+nav:
+  - Home: index.md
+  - Workflows:
+    - Main: LabeLMaker/workflow.md
+  - Generative Categorizer:
+    - Label Maker Handler: LabeLMaker/label_maker_handler.md
+    - Categorize:
+      - Categorizer: LabeLMaker/Categorize/categorizer.md
+      - Zeroshot : LabeLMaker/Categorize/zeroshot.md
+      - Fewshot: LabeLMaker/Categorize/fewshot.md
+      - Manyshot: LabeLMaker/Categorize/manyshot.md
+    - Evaluate:
+      - Evaluator: LabeLMaker/Evaluate/evaluator.md
+      - Confidence Intervals: LabeLMaker/Evaluate/confidence_intervals.md
+      - Data Loader: LabeLMaker/Evaluate/data_loader.md
+    - Utils:
+      - Category: LabeLMaker/utils/category.md
+      - Class Balance: LabeLMaker/utils/class_balance.md
+      - File Manager: LabeLMaker/utils/file_manager.md
+      - Normalize Text: LabeLMaker/utils/normalize_text.md
+      - Page Renderer: LabeLMaker/utils/page_renderer.md
+  - LabeLMaker_config:
+    - Config: LabeLMaker_Config/config.md
+
+  - llm_utils: '!include ./llm_utils/mkdocs.yml'
+
+theme:
+  name: readthedocs
+plugins:
+  - search
+  - monorepo:
+      submodules:
+        - path: llm_utils
+          repo_url: ''
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [LabeLMaker, LabeLMaker_config, user_interface, llm_utils]  # search packages in these folders
+watch:
+  - .  # reload docs for any file changes
+use_directory_urls: false

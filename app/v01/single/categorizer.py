@@ -1,0 +1,51 @@
+from pathlib import Path
+
+import pandas as pd
+from aiweb_common.fastapi.schemas import MSExcelResponse
+from aiweb_common.file_operations.file_config import CSV_EXPECTED_TYPE
+from aiweb_common.file_operations.upload_manager import FastAPIUploadManager
+from fastapi import APIRouter, BackgroundTasks, HTTPException
+
+from app.fastapi_config import LABEL_MAKER_META
+from app.v01.single.schemas import RequestCategorization
+from LabeLMaker.workflow import FastAPICategorizeHandler
+from LabeLMaker_config.config import Config
+
+router = APIRouter(tags=["Labels"])
+
+
+def get_categorization_response(
+    request: RequestCategorization, file_encoded: str, background_tasks: BackgroundTasks
+) -> MSExcelResponse:
+    handler = FastAPICategorizeHandler(azure_key=Config.AZURE_DOCAI_KEY)
+    zs_prompty = Path(Config.ZS_PROMPTY)
+    fs_prompty = Path(Config.FS_PROMPTY)
+
+    try:
+        upload_manager = FastAPIUploadManager(background_tasks=background_tasks)
+        data = upload_manager.read_and_validate_file(file_encoded, request.extension)
+        if not isinstance(data, pd.DataFrame):
+            raise ValueError("Uploaded file did not result in a valid DataFrame.")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error processing file: {e}")
+
+    try:
+        categorized_df = handler.fastapi_categorize(data, request, zs_prompty, fs_prompty)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error categorizing data: {e}")
+
+    csv_data = categorized_df.to_csv(index=False).encode("utf-8")
+    return MSExcelResponse(
+        encoded_xlsx=csv_data,
+        filename="AI_Generated_Categorization.csv",
+        media_type=CSV_EXPECTED_TYPE,
+    )
+
+
+@router.post("/cv/v01/labels/", **LABEL_MAKER_META)
+async def process_categorize(
+    background_tasks: BackgroundTasks, request: RequestCategorization
+) -> MSExcelResponse:
+    response = get_categorization_response(request, request.file_encoded, background_tasks)
+
+    return response
