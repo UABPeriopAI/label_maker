@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sites.uab.edu/periop-datascience/LabeLMaker/Categorize/fewshot.html" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Fewshot - Label Maker</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Fewshot";
+        var mkdocs_page_input_path = "LabeLMaker/Categorize/fewshot.md";
+        var mkdocs_page_url = "/periop-datascience/LabeLMaker/Categorize/fewshot.html";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../index.html" class="icon icon-home"> Label Maker
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Workflows</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../workflow.html">Main</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Generative Categorizer</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../streamlit_interface.html">Label Maker Handler</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" >Categorize</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="categorizer.html">Categorizer</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="zeroshot.html">Zeroshot</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Fewshot</a>
+    <ul class="current">
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="manyshot.html">Manyshot</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Evaluate</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../Evaluate/evaluator.html">Evaluator</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Evaluate/confidence_intervals.html">Confidence Intervals</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../Evaluate/data_loader.html">Data Loader</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Utils</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../utils/category.html">Category</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../utils/class_balance.html">Class Balance</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../utils/file_manager.html">File Manager</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../utils/normalize_text.html">Normalize Text</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../utils/page_renderer.html">Page Renderer</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">LabeLMaker_config</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../../LabeLMaker_Config/config.md">Config</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Label Maker</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Generative Categorizer</li>
+          <li class="breadcrumb-item">Categorize</li>
+      <li class="breadcrumb-item active">Fewshot</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/uabperiopai/edit/master/docs/LabeLMaker/Categorize/fewshot.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="doc doc-object doc-module">
+
+
+
+<a id="LabeLMaker.Categorize.fewshot"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="LabeLMaker.Categorize.fewshot.FewShotCategorizer" class="doc doc-heading">
+            <code>FewShotCategorizer</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="LabeLMaker (LabeLMaker.Categorize.categorizer.LabeLMaker)" href="categorizer.html#LabeLMaker.Categorize.categorizer.LabeLMaker">LabeLMaker</a></code></p>
+
+
+
+
+
+
+
+
+              <details class="quote">
+                <summary>Source code in <code>LabeLMaker/Categorize/fewshot.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FewShotCategorizer</span><span class="p">(</span><span class="n">LabeLMaker</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompty_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">category_request</span><span class="p">:</span> <span class="n">CategorizationRequest</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">prompty_path</span><span class="p">,</span> <span class="n">category_request</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_examples</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;fewshot_categorizer_output.txt&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_mime_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;text/plain&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_prompt_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt_template</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The function `_validate_prompt_template` checks if certain expected variables are present in a given</span>
+<span class="sd">        prompt template for few-shot prompts.</span>
+
+<span class="sd">        :param prompt_template: It looks like you are trying to validate mandatory variables in a few-shot</span>
+<span class="sd">        prompt template. The expected variables are &#39;item&#39;, &#39;categories_with_descriptions&#39;, and &#39;examples&#39;.</span>
+<span class="sd">        The code snippet you provided checks if these variables are present in the prompt template. If any</span>
+<span class="sd">        of the expected variables are missing, a</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Validate mandatory variables for few-shot prompts</span>
+        <span class="n">expected_variables</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;item&quot;</span><span class="p">,</span> <span class="s2">&quot;categories_with_descriptions&quot;</span><span class="p">,</span> <span class="s2">&quot;examples&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">expected_variables</span><span class="p">:</span>
+            <span class="k">if</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">prompt_template</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Expected variable </span><span class="se">{{</span><span class="s2">var</span><span class="se">}}</span><span class="s2"> not found in the few-shot prompt template.&quot;</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function validates that there is at least one example for each proposed category in a</span>
+<span class="sd">        categorization request.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ensure that there is at least one example for each proposed category</span>
+        <span class="n">category_examples</span> <span class="o">=</span> <span class="p">{</span><span class="n">category</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorzation_request</span><span class="o">.</span><span class="n">categories</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorzation_request</span><span class="o">.</span><span class="n">examples</span> <span class="ow">or</span> <span class="p">[]:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">Example</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">example</span><span class="o">.</span><span class="n">label</span> <span class="ow">in</span> <span class="n">category_examples</span><span class="p">:</span>
+                    <span class="n">category_examples</span><span class="p">[</span><span class="n">example</span><span class="o">.</span><span class="n">label</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected an instance of Example, but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">example</span><span class="p">)</span><span class="si">}</span><span class="s2"> instead&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">category_examples</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;No examples provided for category: &#39;</span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s2">&#39;. Each category must have at least one example.&quot;</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_prompt_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The `_prepare_prompt_inputs` function prepares categories with descriptions and examples for a</span>
+<span class="sd">        prompt input.</span>
+<span class="sd">        :return: The `_prepare_prompt_inputs` method returns a dictionary containing the following keys and</span>
+<span class="sd">        values:</span>
+<span class="sd">        - &#39;categories_with_descriptions&#39;: a list of dictionaries where each dictionary contains a category</span>
+<span class="sd">        name and its description (or a default message if no description is provided)</span>
+<span class="sd">        - &#39;examples&#39;: examples prepared by the `_prepare_examples` method if available, otherwise it is set</span>
+<span class="sd">        to None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Prepare categories with descriptions like in ZeroShotCategorizer</span>
+        <span class="n">categories_with_descriptions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorzation_request</span><span class="o">.</span><span class="n">categories</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">Categories</span><span class="p">):</span>
+                <span class="n">categories_with_descriptions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="p">(</span>
+                            <span class="n">category</span><span class="o">.</span><span class="n">description</span>
+                            <span class="k">if</span> <span class="n">category</span><span class="o">.</span><span class="n">description</span>
+                            <span class="k">else</span> <span class="s2">&quot;No description provided&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Expected an instance of Categories, but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">category</span><span class="p">)</span><span class="si">}</span><span class="s2"> instead&quot;</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Prepare examples if available</span>
+        <span class="n">examples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_examples</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorzation_request</span><span class="o">.</span><span class="n">examples</span> <span class="k">else</span> <span class="kc">None</span>
+
+        <span class="c1"># Combine prompt inputs</span>
+        <span class="n">prompt_inputs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;categories_with_descriptions&quot;</span><span class="p">:</span> <span class="n">categories_with_descriptions</span><span class="p">,</span>
+            <span class="s2">&quot;examples&quot;</span><span class="p">:</span> <span class="n">examples</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">prompt_inputs</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_examples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The `_prepare_examples` function prepares example prompt text by converting them into a list of</span>
+<span class="sd">        dictionaries, ensuring they are instances of the `Example` class.</span>
+<span class="sd">        :return: The method `_prepare_examples` is returning a list of dictionaries containing the text with</span>
+<span class="sd">        label and label of each example in the categorization request. The method also includes a debug</span>
+<span class="sd">        print statement to show the prepared examples before returning them.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Prepare the example prompt text as a list of dictionaries</span>
+        <span class="n">prompt_examples</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorzation_request</span><span class="o">.</span><span class="n">examples</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">Example</span><span class="p">):</span>
+                <span class="n">prompt_examples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">{</span><span class="s2">&quot;text_with_label&quot;</span><span class="p">:</span> <span class="n">example</span><span class="o">.</span><span class="n">text_with_label</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">example</span><span class="o">.</span><span class="n">label</span><span class="p">}</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected an instance of Example, but got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">example</span><span class="p">)</span><span class="si">}</span><span class="s2"> instead&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">prompt_examples</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">categorize_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_args</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The `categorize_item` function updates item arguments with prompt inputs, invokes a chain, handles</span>
+<span class="sd">        exceptions, and returns the result or None.</span>
+
+<span class="sd">        :param item_args: The `item_args` parameter in the `categorize_item` method seems to be a dictionary</span>
+<span class="sd">        containing arguments related to an item. These arguments are updated with prompt inputs obtained</span>
+<span class="sd">        from the `_prepare_prompt_inputs` method before being passed to the `chain.invoke` method for</span>
+<span class="sd">        processing</span>
+<span class="sd">        :return: The `categorize_item` method returns the result of invoking the `chain` with the</span>
+<span class="sd">        `item_args` after updating it with prompt inputs. If the result is `None`, a `ValueError` is raised.</span>
+<span class="sd">        If an exception occurs during the processing, an error message is printed along with the exception</span>
+<span class="sd">        details, and `None` is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get the prompt inputs from _prepare_prompt_inputs and update item_args</span>
+        <span class="n">prompt_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_prompt_inputs</span><span class="p">()</span>
+        <span class="n">item_args</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">prompt_inputs</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">item_args</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Chain returned None for input: </span><span class="si">{</span><span class="n">item_args</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error processing item: </span><span class="si">{</span><span class="n">item_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;item&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exception: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="LabeLMaker.Categorize.fewshot.FewShotCategorizer.categorize_item" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">categorize_item</span><span class="p">(</span><span class="n">item_args</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>The <code>categorize_item</code> function updates item arguments with prompt inputs, invokes a chain, handles
+exceptions, and returns the result or None.</p>
+<p>:param item_args: The <code>item_args</code> parameter in the <code>categorize_item</code> method seems to be a dictionary
+containing arguments related to an item. These arguments are updated with prompt inputs obtained
+from the <code>_prepare_prompt_inputs</code> method before being passed to the <code>chain.invoke</code> method for
+processing
+:return: The <code>categorize_item</code> method returns the result of invoking the <code>chain</code> with the
+<code>item_args</code> after updating it with prompt inputs. If the result is <code>None</code>, a <code>ValueError</code> is raised.
+If an exception occurs during the processing, an error message is printed along with the exception
+details, and <code>None</code> is returned.</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>LabeLMaker/Categorize/fewshot.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">categorize_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The `categorize_item` function updates item arguments with prompt inputs, invokes a chain, handles</span>
+<span class="sd">    exceptions, and returns the result or None.</span>
+
+<span class="sd">    :param item_args: The `item_args` parameter in the `categorize_item` method seems to be a dictionary</span>
+<span class="sd">    containing arguments related to an item. These arguments are updated with prompt inputs obtained</span>
+<span class="sd">    from the `_prepare_prompt_inputs` method before being passed to the `chain.invoke` method for</span>
+<span class="sd">    processing</span>
+<span class="sd">    :return: The `categorize_item` method returns the result of invoking the `chain` with the</span>
+<span class="sd">    `item_args` after updating it with prompt inputs. If the result is `None`, a `ValueError` is raised.</span>
+<span class="sd">    If an exception occurs during the processing, an error message is printed along with the exception</span>
+<span class="sd">    details, and `None` is returned.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get the prompt inputs from _prepare_prompt_inputs and update item_args</span>
+    <span class="n">prompt_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_prompt_inputs</span><span class="p">()</span>
+    <span class="n">item_args</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">prompt_inputs</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">item_args</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Chain returned None for input: </span><span class="si">{</span><span class="n">item_args</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error processing item: </span><span class="si">{</span><span class="n">item_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;item&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exception: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="zeroshot.html" class="btn btn-neutral float-left" title="Zeroshot"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="manyshot.html" class="btn btn-neutral float-right" title="Manyshot">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/uabperiopai" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="zeroshot.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="manyshot.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
