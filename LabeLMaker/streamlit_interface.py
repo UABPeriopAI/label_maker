@@ -302,7 +302,7 @@ class Categorize(BaseHandler):
         texts = []
         document_analysis_client = Config.DOCUMENT_ANALYSIS_CLIENT if hasattr(Config, "AZURE_DOCAI_KEY") else None
         for file in uploaded_files:
-            upload_manager = StreamlitUploadManager(file, accept_multiple_files=False, document_analysis_client=document_analysis_client)
+            upload_manager = StreamlitUploadManager(file, accept_multiple_files=True, document_analysis_client=document_analysis_client)
             self.ui.spinner('Reading in Files...')
             file_data, _ = upload_manager.process_upload()
             if file_data is not None:

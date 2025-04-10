@@ -4,17 +4,16 @@ import tempfile
 import pandas as pd
 from aiweb_common.file_operations.upload_manager import (
     FastAPIUploadManager,
-    StreamlitUploadManager,
-    create_document_analysis_client,
-)
-
+    StreamlitUploadManager
+    )
+from LabeLMaker_config.config import Config
 
 class FileManager:
     def __init__(self, azure_key=None):
         self.document_analysis_client = None
         if azure_key:
             try:
-                self.document_analysis_client = create_document_analysis_client(azure_key)
+                self.document_analysis_client = Config.document_analysis_client(azure_key)
             except Exception as e:
                 raise Exception(f"Failed to create Document Analysis Client: {e}")
 
