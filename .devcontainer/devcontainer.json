@@ -32,7 +32,7 @@
 				"ms-toolsai.jupyter",
 				"ms-toolsai.prompty",
 				"jebbs.plantuml",
-                "ms-python.autopep8"
+                "ms-python.autopep8"				
 			],
 			"settings": { 
 				"python.defaultInterpreterPath": "/usr/local/bin/python",

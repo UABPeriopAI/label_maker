@@ -4,10 +4,11 @@ site_url: https://sites.uab.edu/periop-datascience/
 repo_url: https://github.com/uabperiopai
 nav:
   - Home: index.md
-  - Workflows:
-    - Main: LabeLMaker/workflow.md
   - Generative Categorizer:
-    - Label Maker Handler: LabeLMaker/streamlit_interface.md
+    - Workflows:
+      - Categorize: LabeLMaker/categorize_handler.md
+      - Evaluate: LabeLMaker/evaluate_handler.md
+      - Streamlit: LabeLMaker/streamlit_interface.md
     - Categorize:
       - Categorizer: LabeLMaker/Categorize/categorizer.md
       - Zeroshot : LabeLMaker/Categorize/zeroshot.md
@@ -26,7 +27,7 @@ nav:
   - LabeLMaker_config:
     - Config: LabeLMaker_Config/config.md
 
-  #- llm_utils: '!include ./llm_utils/mkdocs.yml'
+  - llm_utils: '!include ./llm_utils/mkdocs.yml'
 
 theme:
   name: readthedocs
