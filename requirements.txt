@@ -26,4 +26,4 @@ uvicorn
 python-multipart
 fastapi
 pytest
-llm-utils @ git+https://github.com/UABPeriopAI/llm_utils.git@v0.3
+./llm-utils 
