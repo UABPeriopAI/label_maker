@@ -24,6 +24,7 @@
 - **Standardized Output:** Export labels in formats that are easy to integrate with downstream machine learning pipelines.
 - [**Code Documentation**](https://uabperiopai.github.io/label_maker/)
 
+
 ---
 
 ## Installation
