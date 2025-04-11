@@ -22,7 +22,7 @@
 - **Configurable Options:** Adjust label parameters with a simple configuration file.
 - **Multiple Interfaces:** Run the tool from the terminal, streamlit, or with fastapi
 - **Standardized Output:** Export labels in formats that are easy to integrate with downstream machine learning pipelines.
-- [**Extensive Code Documentation**](https://uabperiopai.github.io/label_maker/)
+- [**Code Documentation**](https://uabperiopai.github.io/label_maker/)
 
 ---
 
