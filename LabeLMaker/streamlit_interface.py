@@ -106,15 +106,18 @@ class Evaluate(BaseHandler):
           2. Let the user select a ground truth column and evaluation methods.
           3. Display the evaluation results and provide a download for the DOCX report.
         """
-        file = self._ensure_file(
-            file=None,
-            upload_message="Choose a CSV file for evaluation",
-            file_types=["csv"],
-            key="eval_file_uploader",
-            info_message="Please upload a CSV file to proceed.",
-        )
+        file = None
         if file is None:
+            file = self.ui.file_uploader(
+                "Upload a CSV file for Evaluation",
+                type=["csv"],
+                accept_multiple_files=False,
+                key="eval_file_uploader_handler"  
+            )
+        if file is None:
+            self.ui.info("Please upload a CSV file to proceed.")
             return
+
 
         try:
             df = pd.read_csv(file)

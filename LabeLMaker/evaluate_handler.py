@@ -153,7 +153,7 @@ class StreamlitEvaluateHandler(BaseEvaluateHandler):
         """
         # Step 1: File upload using the provided UI helper.
         file = self.ui.file_uploader(
-            "Upload a CSV file for Evaluation", type=["csv"], key="eval_file_uploader"
+            "Upload a CSV file for Evaluation", type=["csv"], accept_multiple_files=False, key="eval_file_uploader"
         )
         if file is None:
             self.ui.info("Please upload a CSV file to proceed.")
