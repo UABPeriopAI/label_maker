@@ -70,7 +70,7 @@ class LabeLMaker(BaseCategorizer):
         """
         The `create_chain` function returns the result of combining the `prompt_template` and `llm`
         attributes.
-        :return: The `create_chain` method is returning the result of the bitwise OR operation between
+        :return: The `create_chain` method combines the instructions of
         `self.prompt_template` and `self.llm`.
         """
         return self.prompt_template | self.llm
@@ -133,7 +133,6 @@ class LabeLMaker(BaseCategorizer):
                 print(f"Warning: categorize_item() returned None for input: {text_to_categorize}")
             else:
                 # Add this line
-                print(f"Content returned from chain: {content}")
                 text_content = self.check_content_type(content)
                 rationale = self.extract_rationale(text_content)
                 category = self.extract_category(text_content)
@@ -220,12 +219,17 @@ class LabeLMaker(BaseCategorizer):
         index_list = self.categorzation_request.unique_ids
         text_list = self.categorzation_request.text_to_label
         total_list_length = len(text_list)
-        progress_bar = st.progress(1, text="Operation in progress. Please wait...")
+        progress_bar = st.progress(
+            1, text=str(self.__class__.__name__) + " operation in progress. Please wait..."
+        )
 
         for i, (idx, text) in enumerate(zip(index_list, text_list)):
             normalized_text = normalize_text(text)
             progress = (i + 1) / total_list_length
-            progress_bar.progress(progress, text="Operation in progress. Please wait...")
+            progress_bar.progress(
+                progress,
+                text=str(self.__class__.__name__) + " operation in progress. Please wait...",
+            )
 
             rationale, category = self.categorize_text_with_retries(normalized_text)
             categorized_results.append((idx, normalized_text, category, rationale))

@@ -1,4 +1,5 @@
 import tiktoken
+import streamlit as st
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     average_precision_score,
@@ -15,6 +16,7 @@ from LabeLMaker_config.config import Config
 
 class ManyshotClassifier(BaseCategorizer):
     def __init__(self, categorization_request: CategorizationRequest, min_class_count: int):
+        print("Initializing Many-shot categorizer")
         super().__init__()
         self.categorization_request = categorization_request
         self.min_class_count = min_class_count
@@ -184,6 +186,7 @@ class ManyshotClassifier(BaseCategorizer):
         and predicting labels for unlabeled text.
         Returns a list of 4-tuples (uid, text, predicted label, rationale).
         """
+        st.write(str(self.__class__.__name__) + " operation in progress. Please wait...")
         self.preprocess_data()
         self.train_model()
         return self.predict_unlabeled()
