@@ -136,20 +136,16 @@ class Evaluate(BaseHandler):
             # Use a spinner if desired.
             with self.ui.spinner("Evaluating"):
                 try:
-                    print('h')
                     # Call your evaluation function (i.e. a pure function)
                     common_df, results, confusion_matrices = self.eval_handler.compare_methods(
                         df, ground_truth_col, selected_methods
                     )
-                    print('he')
                     # Now display the results.
                     for method, metrics in results.items():
                         self.ui.subheader(method)
                         self.ui.write(metrics)
-                    print('her')
                     # Create and display a DOCX download button.
                     docx_maker = StreamlitDocxCreator(results, confusion_matrices)
-                    print('here')
 
                     doc = docx_maker.create_docx_report()
 
