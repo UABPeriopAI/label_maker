@@ -15,24 +15,30 @@ import streamlit as st
 import json
 # --- External/Internal imports ---
 from aiweb_common.file_operations.upload_manager import StreamlitUploadManager
+from aiweb_common.file_operations.docx_creator import StreamlitDocxCreator
 from LabeLMaker_config.config import Config
 from LabeLMaker.utils.page_renderer import UIHelper
+from LabeLMaker.utils.file_manager import FileManager
 from LabeLMaker.categorize_handler import StreamlitCategorizeHandler
 from LabeLMaker.evaluate_handler import StreamlitEvaluateHandler
+
+
 
 
 class BaseHandler:
     """
     Provides common helper functionality for both evaluation and categorization workflows.
     """
-    def __init__(self, ui_helper: Any) -> None:
+    def __init__(self, ui_helper: Any, azure_key: str = None) -> None:
         """
-        Initialize with a UI helper instance.
+        Initialize with a UI helper instance and an optional azure_key.
         
         Args:
-            ui_helper: An object providing Streamlit helper methods (e.g. file_uploader, write, etc.).
+            ui_helper: An object providing Streamlit helper methods.
+            azure_key: Optional Azure key for creating document analysis client.
         """
         self.ui = ui_helper
+        self.file_manager = FileManager(azure_key)
 
     def _ensure_file(
         self,
@@ -45,17 +51,6 @@ class BaseHandler:
     ) -> Any:
         """
         Ensure file(s) are uploaded. If not, prompt the user.
-        
-        Args:
-            file: The current file variable (can be None).
-            upload_message: Message shown for the uploader.
-            file_types: Allowed file types.
-            key: A unique key for the uploader.
-            info_message: Message shown if no file is provided.
-            accept_multiple_files: Whether to accept multiples.
-        
-        Returns:
-            The file(s) uploaded or None if not provided.
         """
         if file is None:
             file = self.ui.file_uploader(
@@ -68,16 +63,24 @@ class BaseHandler:
                 self.ui.info(info_message)
         return file
 
+    def _load_data(self, uploaded_file: Any) -> pd.DataFrame:
+        """
+        Process an uploaded file into a DataFrame using the FileManager.
+        This function will work for the Streamlit and FastAPI contexts because
+        FileManager delegates to the correct underlying UploadManager.
+        """
+        try:
+            # For Streamlit use process_file_upload, which uses StreamlitUploadManager.
+            df, _ = self.file_manager.process_file_upload(uploaded_file)
+            return df
+        except Exception as e:
+            raise Exception(f"Error processing CSV file: {e}")
+
     def generate_docx_report_download(self, doc: Any) -> bytes:
         """
         Convert a DOCX document into bytes for download.
-        
-        Args:
-            doc: A DOCX document object.
-        
-        Returns:
-            Byte representation of the DOCX document.
         """
+        import io
         with io.BytesIO() as temp_stream:
             doc.save(temp_stream)
             temp_stream.seek(0)
@@ -89,38 +92,26 @@ class Evaluate(BaseHandler):
     """
     Wraps the evaluation workflow.
     """
-    def __init__(self, ui_helper: Any) -> None:
-        """
-        Initialize the evaluation handler.
-        
-        Args:
-            ui_helper: An object providing Streamlit UI methods.
-        """
-        super().__init__(ui_helper)
-        self.eval_handler = StreamlitEvaluateHandler(ui_helper)
+    def __init__(self, ui_helper: Any, azure_key: str = None) -> None:
+        super().__init__(ui_helper, azure_key=azure_key)
+        self.eval_handler = StreamlitEvaluateHandler(ui_helper, azure_key=azure_key)
 
     def handle_evaluation(self) -> None:
         """
-        Execute the evaluation workflow:
-          1. Upload a CSV file and preview its contents.
-          2. Let the user select a ground truth column and evaluation methods.
-          3. Display the evaluation results and provide a download for the DOCX report.
+        Execute the evaluation workflow.
         """
-        file = None
+        file = self._ensure_file(
+            file=None,
+            upload_message="Upload a CSV file for Evaluation",
+            file_types=["csv"],
+            key="eval_file_uploader_handler",
+            info_message="Please upload a CSV file to proceed.",
+        )
         if file is None:
-            file = self.ui.file_uploader(
-                "Upload a CSV file for Evaluation",
-                type=["csv"],
-                accept_multiple_files=False,
-                key="eval_file_uploader_handler"  
-            )
-        if file is None:
-            self.ui.info("Please upload a CSV file to proceed.")
             return
 
-
         try:
-            df = pd.read_csv(file)
+            df = self._load_data(file)
         except Exception as error:
             self.ui.error(f"Error reading file: {error}")
             return
@@ -140,10 +131,37 @@ class Evaluate(BaseHandler):
             key="eval_methods",
         )
 
-        if self.ui.button("Evaluate", key="eval_submit"):
-            with self.ui.spinner("Evaluating..."):
-                # Delegate to the internal evaluation handler.
-                self.eval_handler.handle_evaluation()
+        # Move the button to the UI layer.
+        if self.ui.button("Calculate Results", key="calc_results_button"):
+            # Use a spinner if desired.
+            with self.ui.spinner("Evaluating"):
+                try:
+                    print('h')
+                    # Call your evaluation function (i.e. a pure function)
+                    common_df, results, confusion_matrices = self.eval_handler.compare_methods(
+                        df, ground_truth_col, selected_methods
+                    )
+                    print('he')
+                    # Now display the results.
+                    for method, metrics in results.items():
+                        self.ui.subheader(method)
+                        self.ui.write(metrics)
+                    print('her')
+                    # Create and display a DOCX download button.
+                    docx_maker = StreamlitDocxCreator(results, confusion_matrices)
+                    print('here')
+
+                    doc = docx_maker.create_docx_report()
+
+                    docx_content = self.generate_docx_report_download(doc)
+                    self.ui.download_button(
+                        label="Download DOCX Report",
+                        data=docx_content,
+                        file_name="evaluation_report.docx",
+                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    )
+                except Exception as e:
+                    self.ui.error(f"Error during evaluation: {e}")
 
 
 # --- Categorization Handler for Streamlit UI ---

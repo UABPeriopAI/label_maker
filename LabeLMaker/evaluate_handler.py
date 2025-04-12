@@ -21,9 +21,9 @@ import pandas as pd
 from LabeLMaker.Evaluate.confidence_intervals import compute_bootstrap_confidence_intervals
 
 # --- External Dependencies (assumed present) ---
-from LabeLMaker.Evaluate.data_loader import DataLoader
 from LabeLMaker.Evaluate.evaluator import Evaluator
 from LabeLMaker_config.config import Config
+from aiweb_common.file_operations.docx_creator import StreamlitDocxCreator
 
 
 class BaseEvaluateHandler:
@@ -35,12 +35,16 @@ class BaseEvaluateHandler:
         self.azure_key = azure_key
         self.config = Config
 
-    def load_data(self, file: Any) -> pd.DataFrame:
-        """
-        Load CSV evaluation data.
-        """
-        # We assume the uploaded file (or file path) is CSV.
-        return pd.read_csv(file)
+    def _load_data(self, uploaded_file: Any) -> pd.DataFrame:
+        try:
+            if hasattr(uploaded_file, "seek"):
+                uploaded_file.seek(0)  # Reset file pointer before reading
+            df = pd.read_csv(uploaded_file)
+            if df.empty:
+                raise Exception("File appears to be empty or has no valid columns.")
+            return df
+        except Exception as e:
+            raise Exception(f"Error processing CSV file: {e}")
 
     def evaluate_model(
         self,
@@ -132,78 +136,6 @@ class StreamlitEvaluateHandler(BaseEvaluateHandler):
     def __init__(self, ui_helper: Any, azure_key: str = None) -> None:
         super().__init__(azure_key=azure_key)
         self.ui = ui_helper
-
-    def generate_docx_report_download(self, doc: Any) -> bytes:
-        """
-        Convert a DOCX document to bytes for download.
-        """
-        with io.BytesIO() as temp_stream:
-            doc.save(temp_stream)
-            temp_stream.seek(0)
-            return temp_stream.read()
-
-    def handle_evaluation(self, file: Any = None) -> None:
-        """
-        Execute the evaluation workflow:
-          – File upload
-          – Data preview
-          – Ground truth column selection
-          – Display class balance & evaluation methods (via LabeLMaker utility)
-          – Evaluate predictions and offer DOCX report for download
-        """
-        # Step 1: File upload using the provided UI helper.
-        file = self.ui.file_uploader(
-            "Upload a CSV file for Evaluation", type=["csv"], accept_multiple_files=False, key="eval_file_uploader"
-        )
-        if file is None:
-            self.ui.info("Please upload a CSV file to proceed.")
-            return
-
-        df = self.load_data(file)
-        self.ui.subheader("CSV Preview:")
-        self.ui.write(df.head())
-        self.ui.write(f"Total rows: {len(df)}")
-
-        # Step 2: Ground truth column selection.
-        ground_truth_col = self.ui.selectbox(
-            "Select the Ground Truth Column", df.columns, key="eval_gt_column"
-        )
-        self.ui.subheader(f"Class Balance for {ground_truth_col}")
-        from LabeLMaker.utils.class_balance import ClassBalance  # assumed external utility
-
-        balancer = ClassBalance(df, ground_truth_col)
-        self.ui.write(balancer.compute_balance())
-
-        selected_methods = self.ui.multiselect(
-            "Select Evaluation Methods",
-            ["Zero Shot", "Few Shot", "Many Shot"],
-            default=["Zero Shot"],
-            key="eval_methods",
-        )
-
-        if self.ui.button("Evaluate"):
-            try:
-                common_df, results, confusion_matrices = self.compare_methods(
-                    df, ground_truth_col, selected_methods
-                )
-                # Display results for each method.
-                for method, metrics in results.items():
-                    self.ui.subheader(method)
-                    self.ui.write(metrics)
-                # Generate a DOCX report.
-                from aiweb_common.file_operations.docx_creator import StreamlitDocxCreator
-
-                docx_maker = StreamlitDocxCreator(results, confusion_matrices)
-                doc = docx_maker.create_docx_report()
-                docx_content = self.generate_docx_report_download(doc)
-                self.ui.download_button(
-                    label="Download DOCX Report",
-                    data=docx_content,
-                    file_name="evaluation_report.docx",
-                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                )
-            except Exception as e:
-                self.ui.error(str(e))
 
 
 class FastAPIEvaluateHandler(BaseEvaluateHandler):

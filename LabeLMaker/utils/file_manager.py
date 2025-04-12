@@ -22,8 +22,8 @@ class FileManager:
         upload_manager = StreamlitUploadManager(
             uploaded_file, document_analysis_client=self.document_analysis_client
         )
-        df, _ = upload_manager.process_upload()
-        return df
+        df, extension = upload_manager.process_upload()
+        return df, extension
 
     def process_uploaded_file(self, background_tasks, uploaded_file, ext):
         # Process a single file using StreamlitUploadManager
