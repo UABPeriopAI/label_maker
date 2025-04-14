@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://sites.uab.edu/periop-datascience/LabeLMaker/categorize_handler.html" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Categorize - Label Maker</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Categorize";
+        var mkdocs_page_input_path = "LabeLMaker/categorize_handler.md";
+        var mkdocs_page_url = "/periop-datascience/LabeLMaker/categorize_handler.html";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../index.html" class="icon icon-home"> Label Maker
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Generative Categorizer</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" >Workflows</a>
+    <ul class="current">
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Categorize</a>
+    <ul class="current">
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="evaluate_handler.html">Evaluate</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="streamlit_interface.html">Streamlit</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Categorize</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="Categorize/categorizer.html">Categorizer</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="Categorize/zeroshot.html">Zeroshot</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="Categorize/fewshot.html">Fewshot</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="Categorize/manyshot.html">Manyshot</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Evaluate</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="Evaluate/evaluator.html">Evaluator</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="Evaluate/confidence_intervals.html">Confidence Intervals</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="Evaluate/data_loader.html">Data Loader</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Utils</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="utils/category.html">Category</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="utils/class_balance.html">Class Balance</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="utils/file_manager.html">File Manager</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="utils/normalize_text.html">Normalize Text</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="utils/page_renderer.html">Page Renderer</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">LabeLMaker_config</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="../LabeLMaker_Config/config.md">Config</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">llm_utils</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../llm_utils/index.html">Home</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Fast API</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/fastapi/helper_apis.html">Helper APIS</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/fastapi/schemas.html">Schemas</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/fastapi/validators.html">Validators</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >File Operations</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/file_operations/docx_creator.html">Docx Creator</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/file_operations/file_config.html">File Config</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/file_operations/file_handling.html">File Handling</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/file_operations/text_format.html">Text Format</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/file_operations/upload_manager.html">Upload Manager</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Resource</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/resource/default_resource_config.html">Default Resource Config</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/resource/NIHRePORTERInterface.html">NIH RePORTER Interface</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/resource/PubMedInterface.html">PubMed Interface</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/resource/PubMedQuery.html">PubMed Query</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Streamlit</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/streamlit/BYOKLogin.html">Bring Your Own Key (BYOK)</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/streamlit/streamlit_common.html">Streamlit Common</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../llm_utils/aiweb_common/ObjectFactory.html">Object Factory</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../llm_utils/aiweb_common/WorkflowHandler.html">Workflow Handler</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" >Generate</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/generate/AugmentedResponse.html">AugmentedResponse</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/generate/AugmentedServicer.html">AugmentedServicer</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/generate/ChatResponse.html">ChatResponse</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/generate/ChatSchemas.html">ChatSchemas</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/generate/ChatServicer.html">ChatServicer</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/generate/PromptAssembler.html">PromptAssembler</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/generate/PromptyResponseHandler.html">PromptyResponse</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/generate/PromptyServicer.html">PromptyServicer</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/generate/QueryInterface.html">QueryInterface</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/generate/Response.html">Response</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/generate/SingleResponse.html">SingleResponse</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../llm_utils/aiweb_common/generate/SingleResponseServicer.html">SingleResponseServicer</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Label Maker</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html" class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Generative Categorizer</li>
+          <li class="breadcrumb-item">Workflows</li>
+      <li class="breadcrumb-item active">Categorize</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/uabperiopai/edit/master/docs/LabeLMaker/categorize_handler.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="doc doc-object doc-module">
+
+
+
+<a id="LabeLMaker.categorize_handler"></a>
+    <div class="doc doc-contents first">
+
+        <p>Categorizer Handlers</p>
+<p>This module defines methods to perform content categorization using different techniques.
+It provides a base handler (BaseCategorizeHandler) for core logic and specialized handlers
+for Streamlit and FastAPI integration.</p>
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="LabeLMaker.categorize_handler.BaseCategorizeHandler" class="doc doc-heading">
+            <code>BaseCategorizeHandler</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+        <p>Abstract base class that implements categorization logic.</p>
+<p>In evaluation mode, it accepts a list of evaluation techniques.
+In production mode it inspects the provided ground truth examples and then:
+  - If there are enough training examples for a given category, uses Many Shot.
+  - Else if there are a few examples available, uses Few Shot.
+  - Otherwise, falls back to Zero Shot.</p>
+<p>UI/transport-specific request parsing should be done in child classes.</p>
+
+
+
+
+
+
+
+              <details class="quote">
+                <summary>Source code in <code>LabeLMaker/categorize_handler.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BaseCategorizeHandler</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract base class that implements categorization logic.</span>
+
+<span class="sd">    In evaluation mode, it accepts a list of evaluation techniques.</span>
+<span class="sd">    In production mode it inspects the provided ground truth examples and then:</span>
+<span class="sd">      - If there are enough training examples for a given category, uses Many Shot.</span>
+<span class="sd">      - Else if there are a few examples available, uses Few Shot.</span>
+<span class="sd">      - Otherwise, falls back to Zero Shot.</span>
+
+<span class="sd">    UI/transport-specific request parsing should be done in child classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">azure_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">Config</span>  <span class="c1"># Expose configuration constants.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">azure_key</span> <span class="o">=</span> <span class="n">azure_key</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_ground_truth_examples</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">id_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">text_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">gt_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">few_shot_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">MIN_SAMPLES_FEW_SHOT</span><span class="p">,</span>
+        <span class="n">many_shot_train_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">MANY_SHOT_TRAIN_RATIO</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Example</span><span class="p">],</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Example</span><span class="p">],</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+        <span class="n">few_shot_examples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Example</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">few_shot_ids</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">many_shot_examples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Example</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">many_shot_test_ids</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="n">df_gt</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="n">id_col</span><span class="p">,</span> <span class="n">text_col</span><span class="p">,</span> <span class="n">gt_col</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">df_gt</span><span class="p">[</span><span class="n">gt_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_gt</span><span class="p">[</span><span class="n">gt_col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="c1"># Group by the ground truth label.</span>
+        <span class="n">grouped</span> <span class="o">=</span> <span class="n">df_gt</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">gt_col</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">grouped</span><span class="p">:</span>
+            <span class="n">records</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">)</span>
+            <span class="c1"># Select a few-shot sample up to the provided count.</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">few_shot_count</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sampled</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">sampled</span><span class="p">:</span>
+                    <span class="n">few_shot_examples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">Example</span><span class="p">(</span><span class="n">text_with_label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">rec</span><span class="p">[</span><span class="n">text_col</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">rec</span><span class="p">[</span><span class="n">gt_col</span><span class="p">]))</span>
+                    <span class="p">)</span>
+                    <span class="n">few_shot_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">rec</span><span class="p">[</span><span class="n">id_col</span><span class="p">]))</span>
+
+            <span class="c1"># Prepare many-shot data if there are multiple records.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">shuffled</span> <span class="o">=</span> <span class="n">records</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">shuffled</span><span class="p">)</span>
+                <span class="n">train_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">many_shot_train_ratio</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">)))</span>
+                <span class="n">train_examples</span> <span class="o">=</span> <span class="n">shuffled</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+                <span class="n">test_examples</span> <span class="o">=</span> <span class="n">shuffled</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span>
+                <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">train_examples</span><span class="p">:</span>
+                    <span class="n">many_shot_examples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">Example</span><span class="p">(</span><span class="n">text_with_label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">rec</span><span class="p">[</span><span class="n">text_col</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">rec</span><span class="p">[</span><span class="n">gt_col</span><span class="p">]))</span>
+                    <span class="p">)</span>
+                <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">test_examples</span><span class="p">:</span>
+                    <span class="n">many_shot_test_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">rec</span><span class="p">[</span><span class="n">id_col</span><span class="p">]))</span>
+
+        <span class="k">return</span> <span class="n">few_shot_examples</span><span class="p">,</span> <span class="n">few_shot_ids</span><span class="p">,</span> <span class="n">many_shot_examples</span><span class="p">,</span> <span class="n">many_shot_test_ids</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">categorize_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">index_column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">text_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">ground_truth_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">examples_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">categories_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">zs_prompty</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+        <span class="n">fs_prompty</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+        <span class="n">evaluation_techniques</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">few_shot_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">FEW_SHOT_COUNT</span><span class="p">,</span>
+        <span class="n">many_shot_train_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">MANY_SHOT_TRAIN_RATIO</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The heart of the abstract categorization logic.</span>
+
+<span class="sd">        If mode is &quot;evaluation&quot;, it prepares ground truth examples and then applies</span>
+<span class="sd">        the chosen evaluation techniques.</span>
+
+<span class="sd">        Otherwise (production mode), it selects among zero, few, or many shot modes depending</span>
+<span class="sd">        on whether a ground truth column is provided and on the number of examples available.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If no dedicated index is passed in, add one.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">index_column</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+            <span class="n">index_column</span> <span class="o">=</span> <span class="s2">&quot;index&quot;</span>
+
+        <span class="c1"># Prepare a list of texts and corresponding unique ids.</span>
+        <span class="n">text_to_label</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">text_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">unique_ids</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">mode</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;evaluation&quot;</span> <span class="ow">and</span> <span class="n">evaluation_techniques</span><span class="p">:</span>
+            <span class="c1"># Evaluation mode: run all requested techniques (e.g., Zero Shot, Few Shot, Many Shot)</span>
+            <span class="n">categorization_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span>
+            <span class="p">)</span>
+            <span class="n">predictions</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="p">(</span>
+                <span class="n">few_shot_examples</span><span class="p">,</span>
+                <span class="n">few_shot_ids</span><span class="p">,</span>
+                <span class="n">many_shot_examples</span><span class="p">,</span>
+                <span class="n">many_shot_test_ids</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_ground_truth_examples</span><span class="p">(</span>
+                <span class="n">df</span><span class="p">,</span>
+                <span class="n">index_column</span><span class="p">,</span>
+                <span class="n">text_column</span><span class="p">,</span>
+                <span class="n">ground_truth_column</span><span class="p">,</span>
+                <span class="n">few_shot_count</span><span class="p">,</span>
+                <span class="n">many_shot_train_ratio</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">tech</span> <span class="ow">in</span> <span class="n">evaluation_techniques</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">tech</span> <span class="o">==</span> <span class="s2">&quot;Zero Shot&quot;</span><span class="p">:</span>
+                    <span class="n">zs_categorizer</span> <span class="o">=</span> <span class="n">ZeroShotCategorizer</span><span class="p">(</span>
+                        <span class="n">prompty_path</span><span class="o">=</span><span class="n">zs_prompty</span><span class="p">,</span> <span class="n">category_request</span><span class="o">=</span><span class="n">categorization_request</span>
+                    <span class="p">)</span>
+                    <span class="n">results</span> <span class="o">=</span> <span class="n">zs_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+                    <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;Zero Shot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span>
+                <span class="k">elif</span> <span class="n">tech</span> <span class="o">==</span> <span class="s2">&quot;Few Shot&quot;</span><span class="p">:</span>
+                    <span class="n">fs_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                        <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span><span class="p">,</span> <span class="n">few_shot_examples</span>
+                    <span class="p">)</span>
+                    <span class="n">fs_categorizer</span> <span class="o">=</span> <span class="n">FewShotCategorizer</span><span class="p">(</span>
+                        <span class="n">prompty_path</span><span class="o">=</span><span class="n">fs_prompty</span><span class="p">,</span> <span class="n">category_request</span><span class="o">=</span><span class="n">fs_request</span>
+                    <span class="p">)</span>
+                    <span class="n">results</span> <span class="o">=</span> <span class="n">fs_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+                    <span class="c1"># Remove any examples already in the few-shot gold set.</span>
+                    <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;Few Shot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">few_shot_ids</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">tech</span> <span class="o">==</span> <span class="s2">&quot;Many Shot&quot;</span><span class="p">:</span>
+                    <span class="n">ms_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                        <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span><span class="p">,</span> <span class="n">many_shot_examples</span>
+                    <span class="p">)</span>
+                    <span class="n">ms_categorizer</span> <span class="o">=</span> <span class="n">ManyshotClassifier</span><span class="p">(</span>
+                        <span class="n">categorization_request</span><span class="o">=</span><span class="n">ms_request</span><span class="p">,</span>
+                        <span class="n">min_class_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MIN_SAMPLES_MANY_SHOT</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">results</span> <span class="o">=</span> <span class="n">ms_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+                    <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;Many Shot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">in</span> <span class="n">many_shot_test_ids</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported technique &#39;</span><span class="si">{</span><span class="n">tech</span><span class="si">}</span><span class="s2">&#39; in evaluation mode.&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Merge the results into the dataframe: one additional set of columns per technique.</span>
+            <span class="n">merged_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">technique</span><span class="p">,</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">predictions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">tech_pred_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                    <span class="p">[(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">results</span><span class="p">],</span>
+                    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">index_column</span><span class="p">,</span>
+                             <span class="sa">f</span><span class="s2">&quot;Predicted Category (</span><span class="si">{</span><span class="n">technique</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                             <span class="sa">f</span><span class="s2">&quot;Rationale (</span><span class="si">{</span><span class="n">technique</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">],</span>
+                <span class="p">)</span>
+                <span class="n">merged_df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+                <span class="n">tech_pred_df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">tech_pred_df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+                <span class="n">merged_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">tech_pred_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">index_column</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">merged_df</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;gt col - &quot;</span><span class="p">,</span> <span class="n">examples_column</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;df cols - &quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+            <span class="c1"># Production mode: choose the most appropriate technique based on the provided examples.</span>
+            <span class="k">if</span> <span class="n">examples_column</span> <span class="ow">and</span> <span class="n">examples_column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="p">(</span>
+                    <span class="n">few_shot_examples</span><span class="p">,</span>
+                    <span class="n">few_shot_ids</span><span class="p">,</span>
+                    <span class="n">many_shot_examples</span><span class="p">,</span>
+                    <span class="n">many_shot_test_ids</span><span class="p">,</span>
+                <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_ground_truth_examples</span><span class="p">(</span>
+                    <span class="n">df</span><span class="p">,</span>
+                    <span class="n">index_column</span><span class="p">,</span>
+                    <span class="n">text_column</span><span class="p">,</span>
+                    <span class="n">examples_column</span><span class="p">,</span>
+                    <span class="n">few_shot_count</span><span class="p">,</span>
+                    <span class="n">many_shot_train_ratio</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FS Examples - &quot;</span><span class="p">,</span> <span class="n">few_shot_examples</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MS Examples - &quot;</span><span class="p">,</span> <span class="n">few_shot_examples</span><span class="p">)</span>
+                <span class="c1"># Prefer Many Shot if we have enough training examples.</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">many_shot_examples</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MIN_SAMPLES_MANY_SHOT</span><span class="p">:</span>
+                    <span class="n">ms_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                        <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span><span class="p">,</span> <span class="n">many_shot_examples</span>
+                    <span class="p">)</span>
+                    <span class="n">ms_categorizer</span> <span class="o">=</span> <span class="n">ManyshotClassifier</span><span class="p">(</span>
+                        <span class="n">categorization_request</span><span class="o">=</span><span class="n">ms_request</span><span class="p">,</span>
+                        <span class="n">min_class_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MIN_SAMPLES_MANY_SHOT</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">predictions</span> <span class="o">=</span> <span class="n">ms_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+                    <span class="c1"># In production, we assume predictions are for test examples only.</span>
+                    <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">predictions</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">in</span> <span class="n">many_shot_test_ids</span><span class="p">]</span>
+                <span class="c1"># Else, try Few Shot if any examples exist.</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">few_shot_examples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">fs_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                        <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span><span class="p">,</span> <span class="n">few_shot_examples</span>
+                    <span class="p">)</span>
+                    <span class="n">fs_categorizer</span> <span class="o">=</span> <span class="n">FewShotCategorizer</span><span class="p">(</span>
+                        <span class="n">prompty_path</span><span class="o">=</span><span class="n">fs_prompty</span><span class="p">,</span> <span class="n">category_request</span><span class="o">=</span><span class="n">fs_request</span>
+                    <span class="p">)</span>
+                    <span class="n">predictions</span> <span class="o">=</span> <span class="n">fs_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+                    <span class="n">results</span> <span class="o">=</span> <span class="n">predictions</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Fallback to Zero Shot if no ground truth examples are available.</span>
+                    <span class="n">zs_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                        <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span>
+                    <span class="p">)</span>
+                    <span class="n">zs_categorizer</span> <span class="o">=</span> <span class="n">ZeroShotCategorizer</span><span class="p">(</span>
+                        <span class="n">prompty_path</span><span class="o">=</span><span class="n">zs_prompty</span><span class="p">,</span> <span class="n">category_request</span><span class="o">=</span><span class="n">zs_request</span>
+                    <span class="p">)</span>
+                    <span class="n">results</span> <span class="o">=</span> <span class="n">zs_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># No ground truth column provided: use Zero Shot as default.</span>
+                <span class="n">zs_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                    <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span>
+                <span class="p">)</span>
+                <span class="n">zs_categorizer</span> <span class="o">=</span> <span class="n">ZeroShotCategorizer</span><span class="p">(</span>
+                    <span class="n">prompty_path</span><span class="o">=</span><span class="n">zs_prompty</span><span class="p">,</span> <span class="n">category_request</span><span class="o">=</span><span class="n">zs_request</span>
+                <span class="p">)</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">zs_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+
+            <span class="c1"># In production we assume a single set of predicted results.</span>
+            <span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">results</span><span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">index_column</span><span class="p">,</span> <span class="s2">&quot;Category&quot;</span><span class="p">,</span> <span class="s2">&quot;Rationale&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="c1"># Ensure columns are strings for a proper merge.</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+            <span class="n">results_df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+            <span class="n">merged_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">results_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">index_column</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+
+            <span class="n">final_columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Category&quot;</span><span class="p">,</span> <span class="s2">&quot;Rationale&quot;</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">merged_df</span><span class="p">[</span><span class="n">final_columns</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="LabeLMaker.categorize_handler.BaseCategorizeHandler.categorize_data" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">categorize_data</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">index_column</span><span class="p">,</span> <span class="n">text_column</span><span class="p">,</span> <span class="n">ground_truth_column</span><span class="p">,</span> <span class="n">examples_column</span><span class="p">,</span> <span class="n">categories_dict</span><span class="p">,</span> <span class="n">zs_prompty</span><span class="p">,</span> <span class="n">fs_prompty</span><span class="p">,</span> <span class="n">evaluation_techniques</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">few_shot_count</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">FEW_SHOT_COUNT</span><span class="p">,</span> <span class="n">many_shot_train_ratio</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">MANY_SHOT_TRAIN_RATIO</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>The heart of the abstract categorization logic.</p>
+<p>If mode is "evaluation", it prepares ground truth examples and then applies
+the chosen evaluation techniques.</p>
+<p>Otherwise (production mode), it selects among zero, few, or many shot modes depending
+on whether a ground truth column is provided and on the number of examples available.</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>LabeLMaker/categorize_handler.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">categorize_data</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">index_column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">text_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">ground_truth_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">examples_column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">categories_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">zs_prompty</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">fs_prompty</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">evaluation_techniques</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">few_shot_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">FEW_SHOT_COUNT</span><span class="p">,</span>
+    <span class="n">many_shot_train_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">MANY_SHOT_TRAIN_RATIO</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The heart of the abstract categorization logic.</span>
+
+<span class="sd">    If mode is &quot;evaluation&quot;, it prepares ground truth examples and then applies</span>
+<span class="sd">    the chosen evaluation techniques.</span>
+
+<span class="sd">    Otherwise (production mode), it selects among zero, few, or many shot modes depending</span>
+<span class="sd">    on whether a ground truth column is provided and on the number of examples available.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If no dedicated index is passed in, add one.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">index_column</span><span class="p">:</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+        <span class="n">index_column</span> <span class="o">=</span> <span class="s2">&quot;index&quot;</span>
+
+    <span class="c1"># Prepare a list of texts and corresponding unique ids.</span>
+    <span class="n">text_to_label</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">text_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">unique_ids</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">mode</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;evaluation&quot;</span> <span class="ow">and</span> <span class="n">evaluation_techniques</span><span class="p">:</span>
+        <span class="c1"># Evaluation mode: run all requested techniques (e.g., Zero Shot, Few Shot, Many Shot)</span>
+        <span class="n">categorization_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+            <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span>
+        <span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="p">(</span>
+            <span class="n">few_shot_examples</span><span class="p">,</span>
+            <span class="n">few_shot_ids</span><span class="p">,</span>
+            <span class="n">many_shot_examples</span><span class="p">,</span>
+            <span class="n">many_shot_test_ids</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_ground_truth_examples</span><span class="p">(</span>
+            <span class="n">df</span><span class="p">,</span>
+            <span class="n">index_column</span><span class="p">,</span>
+            <span class="n">text_column</span><span class="p">,</span>
+            <span class="n">ground_truth_column</span><span class="p">,</span>
+            <span class="n">few_shot_count</span><span class="p">,</span>
+            <span class="n">many_shot_train_ratio</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">tech</span> <span class="ow">in</span> <span class="n">evaluation_techniques</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tech</span> <span class="o">==</span> <span class="s2">&quot;Zero Shot&quot;</span><span class="p">:</span>
+                <span class="n">zs_categorizer</span> <span class="o">=</span> <span class="n">ZeroShotCategorizer</span><span class="p">(</span>
+                    <span class="n">prompty_path</span><span class="o">=</span><span class="n">zs_prompty</span><span class="p">,</span> <span class="n">category_request</span><span class="o">=</span><span class="n">categorization_request</span>
+                <span class="p">)</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">zs_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+                <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;Zero Shot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span>
+            <span class="k">elif</span> <span class="n">tech</span> <span class="o">==</span> <span class="s2">&quot;Few Shot&quot;</span><span class="p">:</span>
+                <span class="n">fs_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                    <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span><span class="p">,</span> <span class="n">few_shot_examples</span>
+                <span class="p">)</span>
+                <span class="n">fs_categorizer</span> <span class="o">=</span> <span class="n">FewShotCategorizer</span><span class="p">(</span>
+                    <span class="n">prompty_path</span><span class="o">=</span><span class="n">fs_prompty</span><span class="p">,</span> <span class="n">category_request</span><span class="o">=</span><span class="n">fs_request</span>
+                <span class="p">)</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">fs_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+                <span class="c1"># Remove any examples already in the few-shot gold set.</span>
+                <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;Few Shot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">few_shot_ids</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">tech</span> <span class="o">==</span> <span class="s2">&quot;Many Shot&quot;</span><span class="p">:</span>
+                <span class="n">ms_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                    <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span><span class="p">,</span> <span class="n">many_shot_examples</span>
+                <span class="p">)</span>
+                <span class="n">ms_categorizer</span> <span class="o">=</span> <span class="n">ManyshotClassifier</span><span class="p">(</span>
+                    <span class="n">categorization_request</span><span class="o">=</span><span class="n">ms_request</span><span class="p">,</span>
+                    <span class="n">min_class_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MIN_SAMPLES_MANY_SHOT</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">ms_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+                <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;Many Shot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">in</span> <span class="n">many_shot_test_ids</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported technique &#39;</span><span class="si">{</span><span class="n">tech</span><span class="si">}</span><span class="s2">&#39; in evaluation mode.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Merge the results into the dataframe: one additional set of columns per technique.</span>
+        <span class="n">merged_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">technique</span><span class="p">,</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">predictions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">tech_pred_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">[(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">results</span><span class="p">],</span>
+                <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">index_column</span><span class="p">,</span>
+                         <span class="sa">f</span><span class="s2">&quot;Predicted Category (</span><span class="si">{</span><span class="n">technique</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                         <span class="sa">f</span><span class="s2">&quot;Rationale (</span><span class="si">{</span><span class="n">technique</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="n">merged_df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+            <span class="n">tech_pred_df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">tech_pred_df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+            <span class="n">merged_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">tech_pred_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">index_column</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">merged_df</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;gt col - &quot;</span><span class="p">,</span> <span class="n">examples_column</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;df cols - &quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="c1"># Production mode: choose the most appropriate technique based on the provided examples.</span>
+        <span class="k">if</span> <span class="n">examples_column</span> <span class="ow">and</span> <span class="n">examples_column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="p">(</span>
+                <span class="n">few_shot_examples</span><span class="p">,</span>
+                <span class="n">few_shot_ids</span><span class="p">,</span>
+                <span class="n">many_shot_examples</span><span class="p">,</span>
+                <span class="n">many_shot_test_ids</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_ground_truth_examples</span><span class="p">(</span>
+                <span class="n">df</span><span class="p">,</span>
+                <span class="n">index_column</span><span class="p">,</span>
+                <span class="n">text_column</span><span class="p">,</span>
+                <span class="n">examples_column</span><span class="p">,</span>
+                <span class="n">few_shot_count</span><span class="p">,</span>
+                <span class="n">many_shot_train_ratio</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FS Examples - &quot;</span><span class="p">,</span> <span class="n">few_shot_examples</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MS Examples - &quot;</span><span class="p">,</span> <span class="n">few_shot_examples</span><span class="p">)</span>
+            <span class="c1"># Prefer Many Shot if we have enough training examples.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">many_shot_examples</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MIN_SAMPLES_MANY_SHOT</span><span class="p">:</span>
+                <span class="n">ms_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                    <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span><span class="p">,</span> <span class="n">many_shot_examples</span>
+                <span class="p">)</span>
+                <span class="n">ms_categorizer</span> <span class="o">=</span> <span class="n">ManyshotClassifier</span><span class="p">(</span>
+                    <span class="n">categorization_request</span><span class="o">=</span><span class="n">ms_request</span><span class="p">,</span>
+                    <span class="n">min_class_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MIN_SAMPLES_MANY_SHOT</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">predictions</span> <span class="o">=</span> <span class="n">ms_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+                <span class="c1"># In production, we assume predictions are for test examples only.</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">predictions</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">in</span> <span class="n">many_shot_test_ids</span><span class="p">]</span>
+            <span class="c1"># Else, try Few Shot if any examples exist.</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">few_shot_examples</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">fs_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                    <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span><span class="p">,</span> <span class="n">few_shot_examples</span>
+                <span class="p">)</span>
+                <span class="n">fs_categorizer</span> <span class="o">=</span> <span class="n">FewShotCategorizer</span><span class="p">(</span>
+                    <span class="n">prompty_path</span><span class="o">=</span><span class="n">fs_prompty</span><span class="p">,</span> <span class="n">category_request</span><span class="o">=</span><span class="n">fs_request</span>
+                <span class="p">)</span>
+                <span class="n">predictions</span> <span class="o">=</span> <span class="n">fs_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">predictions</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Fallback to Zero Shot if no ground truth examples are available.</span>
+                <span class="n">zs_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                    <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span>
+                <span class="p">)</span>
+                <span class="n">zs_categorizer</span> <span class="o">=</span> <span class="n">ZeroShotCategorizer</span><span class="p">(</span>
+                    <span class="n">prompty_path</span><span class="o">=</span><span class="n">zs_prompty</span><span class="p">,</span> <span class="n">category_request</span><span class="o">=</span><span class="n">zs_request</span>
+                <span class="p">)</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">zs_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># No ground truth column provided: use Zero Shot as default.</span>
+            <span class="n">zs_request</span> <span class="o">=</span> <span class="n">CategoryManager</span><span class="o">.</span><span class="n">create_request</span><span class="p">(</span>
+                <span class="n">unique_ids</span><span class="p">,</span> <span class="n">text_to_label</span><span class="p">,</span> <span class="n">categories_dict</span>
+            <span class="p">)</span>
+            <span class="n">zs_categorizer</span> <span class="o">=</span> <span class="n">ZeroShotCategorizer</span><span class="p">(</span>
+                <span class="n">prompty_path</span><span class="o">=</span><span class="n">zs_prompty</span><span class="p">,</span> <span class="n">category_request</span><span class="o">=</span><span class="n">zs_request</span>
+            <span class="p">)</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">zs_categorizer</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+
+        <span class="c1"># In production we assume a single set of predicted results.</span>
+        <span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="p">[(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">results</span><span class="p">],</span>
+            <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">index_column</span><span class="p">,</span> <span class="s2">&quot;Category&quot;</span><span class="p">,</span> <span class="s2">&quot;Rationale&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="c1"># Ensure columns are strings for a proper merge.</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+        <span class="n">results_df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">results_df</span><span class="p">[</span><span class="n">index_column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+        <span class="n">merged_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">results_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">index_column</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+
+        <span class="n">final_columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Category&quot;</span><span class="p">,</span> <span class="s2">&quot;Rationale&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">merged_df</span><span class="p">[</span><span class="n">final_columns</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="LabeLMaker.categorize_handler.FastAPICategorizeHandler" class="doc doc-heading">
+            <code>FastAPICategorizeHandler</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="BaseCategorizeHandler (LabeLMaker.categorize_handler.BaseCategorizeHandler)" href="#LabeLMaker.categorize_handler.BaseCategorizeHandler">BaseCategorizeHandler</a></code></p>
+
+
+        <p>Provides categorization functionality for FastAPI endpoints.</p>
+
+
+
+
+
+
+
+              <details class="quote">
+                <summary>Source code in <code>LabeLMaker/categorize_handler.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">FastAPICategorizeHandler</span><span class="p">(</span><span class="n">BaseCategorizeHandler</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides categorization functionality for FastAPI endpoints.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">azure_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">azure_key</span><span class="o">=</span><span class="n">azure_key</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">fastapi_categorize</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">zs_prompty</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">fs_prompty</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract values from the FastAPI request and pass them to BaseCategorizeHandler.</span>
+<span class="sd">        (Here we assume the request object carries attributes like index_column, text_column, etc.)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">index_column</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">index_column</span>
+        <span class="n">text_column</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">text_column</span>
+        <span class="c1"># ex_label_column may be empty or None.</span>
+        <span class="n">gt_column</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">ex_label_column</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;ex_label_column&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">examples_column</span><span class="o">=</span><span class="n">gt_column</span>
+        <span class="n">categories_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">cat</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">cat</span><span class="o">.</span><span class="n">description</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">categories</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorize_data</span><span class="p">(</span>
+            <span class="n">df</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
+            <span class="n">index_column</span><span class="o">=</span><span class="n">index_column</span><span class="p">,</span>
+            <span class="n">text_column</span><span class="o">=</span><span class="n">text_column</span><span class="p">,</span>
+            <span class="n">ground_truth_column</span><span class="o">=</span><span class="n">gt_column</span><span class="p">,</span>
+            <span class="n">examples_column</span><span class="o">=</span><span class="n">examples_column</span><span class="p">,</span>
+            <span class="n">categories_dict</span><span class="o">=</span><span class="n">categories_dict</span><span class="p">,</span>
+            <span class="n">zs_prompty</span><span class="o">=</span><span class="n">zs_prompty</span><span class="p">,</span>
+            <span class="n">fs_prompty</span><span class="o">=</span><span class="n">fs_prompty</span><span class="p">,</span>
+            <span class="n">evaluation_techniques</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>  <span class="c1"># Could be a list of techniques.</span>
+            <span class="n">few_shot_count</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">few_shot_count</span><span class="p">),</span>
+            <span class="n">many_shot_train_ratio</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">many_shot_train_ratio</span><span class="p">),</span>
+        <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="LabeLMaker.categorize_handler.FastAPICategorizeHandler.fastapi_categorize" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">fastapi_categorize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">zs_prompty</span><span class="p">,</span> <span class="n">fs_prompty</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Extract values from the FastAPI request and pass them to BaseCategorizeHandler.
+(Here we assume the request object carries attributes like index_column, text_column, etc.)</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>LabeLMaker/categorize_handler.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fastapi_categorize</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">zs_prompty</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">fs_prompty</span><span class="p">:</span> <span class="n">Path</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract values from the FastAPI request and pass them to BaseCategorizeHandler.</span>
+<span class="sd">    (Here we assume the request object carries attributes like index_column, text_column, etc.)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">index_column</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">index_column</span>
+    <span class="n">text_column</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">text_column</span>
+    <span class="c1"># ex_label_column may be empty or None.</span>
+    <span class="n">gt_column</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">ex_label_column</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;ex_label_column&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">examples_column</span><span class="o">=</span><span class="n">gt_column</span>
+    <span class="n">categories_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">cat</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">cat</span><span class="o">.</span><span class="n">description</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">categories</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorize_data</span><span class="p">(</span>
+        <span class="n">df</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
+        <span class="n">index_column</span><span class="o">=</span><span class="n">index_column</span><span class="p">,</span>
+        <span class="n">text_column</span><span class="o">=</span><span class="n">text_column</span><span class="p">,</span>
+        <span class="n">ground_truth_column</span><span class="o">=</span><span class="n">gt_column</span><span class="p">,</span>
+        <span class="n">examples_column</span><span class="o">=</span><span class="n">examples_column</span><span class="p">,</span>
+        <span class="n">categories_dict</span><span class="o">=</span><span class="n">categories_dict</span><span class="p">,</span>
+        <span class="n">zs_prompty</span><span class="o">=</span><span class="n">zs_prompty</span><span class="p">,</span>
+        <span class="n">fs_prompty</span><span class="o">=</span><span class="n">fs_prompty</span><span class="p">,</span>
+        <span class="n">evaluation_techniques</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>  <span class="c1"># Could be a list of techniques.</span>
+        <span class="n">few_shot_count</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">few_shot_count</span><span class="p">),</span>
+        <span class="n">many_shot_train_ratio</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">many_shot_train_ratio</span><span class="p">),</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="LabeLMaker.categorize_handler.StreamlitCategorizeHandler" class="doc doc-heading">
+            <code>StreamlitCategorizeHandler</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="BaseCategorizeHandler (LabeLMaker.categorize_handler.BaseCategorizeHandler)" href="#LabeLMaker.categorize_handler.BaseCategorizeHandler">BaseCategorizeHandler</a></code></p>
+
+
+        <p>Thin wrapper for Streamlit usage.
+Expects that UI parameters (collected via the UI) are passed in a dictionary.</p>
+
+
+
+
+
+
+
+              <details class="quote">
+                <summary>Source code in <code>LabeLMaker/categorize_handler.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">StreamlitCategorizeHandler</span><span class="p">(</span><span class="n">BaseCategorizeHandler</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Thin wrapper for Streamlit usage.</span>
+<span class="sd">    Expects that UI parameters (collected via the UI) are passed in a dictionary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">azure_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">azure_key</span><span class="o">=</span><span class="n">azure_key</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">streamlit_categorize</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">ui_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">zs_prompty</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+        <span class="n">fs_prompty</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract values from the Streamlit UI dictionary and pass them to BaseCategorizeHandler.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorize_data</span><span class="p">(</span>
+            <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mode&quot;</span><span class="p">,</span> <span class="s2">&quot;production&quot;</span><span class="p">),</span>
+            <span class="n">index_column</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;index_column&quot;</span><span class="p">),</span>
+            <span class="n">text_column</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;categorizing_column&quot;</span><span class="p">),</span>
+            <span class="n">ground_truth_column</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ground_truth_column&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="n">examples_column</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;examples_column&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="n">categories_dict</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;categories_dict&quot;</span><span class="p">,</span> <span class="p">{}),</span>
+            <span class="n">zs_prompty</span><span class="o">=</span><span class="n">zs_prompty</span><span class="p">,</span>
+            <span class="n">fs_prompty</span><span class="o">=</span><span class="n">fs_prompty</span><span class="p">,</span>
+            <span class="n">evaluation_techniques</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;evaluation_techniques&quot;</span><span class="p">),</span>
+            <span class="n">few_shot_count</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;few_shot_count&quot;</span><span class="p">,</span> <span class="n">Config</span><span class="o">.</span><span class="n">FEW_SHOT_COUNT</span><span class="p">),</span>
+            <span class="n">many_shot_train_ratio</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s2">&quot;many_shot_train_ratio&quot;</span><span class="p">,</span> <span class="n">Config</span><span class="o">.</span><span class="n">MANY_SHOT_TRAIN_RATIO</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="LabeLMaker.categorize_handler.StreamlitCategorizeHandler.streamlit_categorize" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">streamlit_categorize</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">ui_params</span><span class="p">,</span> <span class="n">zs_prompty</span><span class="p">,</span> <span class="n">fs_prompty</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Extract values from the Streamlit UI dictionary and pass them to BaseCategorizeHandler.</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>LabeLMaker/categorize_handler.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">streamlit_categorize</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">ui_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">zs_prompty</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">fs_prompty</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract values from the Streamlit UI dictionary and pass them to BaseCategorizeHandler.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">categorize_data</span><span class="p">(</span>
+        <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mode&quot;</span><span class="p">,</span> <span class="s2">&quot;production&quot;</span><span class="p">),</span>
+        <span class="n">index_column</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;index_column&quot;</span><span class="p">),</span>
+        <span class="n">text_column</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;categorizing_column&quot;</span><span class="p">),</span>
+        <span class="n">ground_truth_column</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ground_truth_column&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="n">examples_column</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;examples_column&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="n">categories_dict</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;categories_dict&quot;</span><span class="p">,</span> <span class="p">{}),</span>
+        <span class="n">zs_prompty</span><span class="o">=</span><span class="n">zs_prompty</span><span class="p">,</span>
+        <span class="n">fs_prompty</span><span class="o">=</span><span class="n">fs_prompty</span><span class="p">,</span>
+        <span class="n">evaluation_techniques</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;evaluation_techniques&quot;</span><span class="p">),</span>
+        <span class="n">few_shot_count</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;few_shot_count&quot;</span><span class="p">,</span> <span class="n">Config</span><span class="o">.</span><span class="n">FEW_SHOT_COUNT</span><span class="p">),</span>
+        <span class="n">many_shot_train_ratio</span><span class="o">=</span><span class="n">ui_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s2">&quot;many_shot_train_ratio&quot;</span><span class="p">,</span> <span class="n">Config</span><span class="o">.</span><span class="n">MANY_SHOT_TRAIN_RATIO</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="evaluate_handler.html" class="btn btn-neutral float-right" title="Evaluate">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/uabperiopai" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../index.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="evaluate_handler.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
