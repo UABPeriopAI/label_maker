@@ -6,6 +6,7 @@ from LabeLMaker.Categorize.categorizer import LabeLMaker
 
 class ZeroShotCategorizer(LabeLMaker):
     def __init__(self, prompty_path: Path, category_request: CategorizationRequest):
+        print("Initializing Zero-shot categorizer")
         super().__init__(prompty_path, category_request)
 
     def _get_filename(self):

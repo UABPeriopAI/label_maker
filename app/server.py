@@ -4,9 +4,14 @@ from fastapi import FastAPI
 
 from app.fastapi_config import FORM_API_META
 from app.v01.single.categorizer import router as v01_categorization_router
+from app.v01.multiple.multi_file_categorizer import router as v01_multi_file_categorization_router
+from app.v01.evaluate.evaluator import router as v01_evaluator_router
+
 
 app = FastAPI(**FORM_API_META)
 app.include_router(v01_categorization_router)
+app.include_router(v01_multi_file_categorization_router)
+app.include_router(v01_evaluator_router)
 app.include_router(utils_router)
 
 

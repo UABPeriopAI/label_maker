@@ -12,33 +12,43 @@ from pathlib import Path
 from typing import Any, Tuple
 import pandas as pd
 import streamlit as st
-import json
 # --- External/Internal imports ---
 from aiweb_common.file_operations.upload_manager import StreamlitUploadManager
-from aiweb_common.file_operations.docx_creator import StreamlitDocxCreator
 from LabeLMaker_config.config import Config
 from LabeLMaker.utils.page_renderer import UIHelper
-from LabeLMaker.utils.file_manager import FileManager
+from LabeLMaker.utils.category import CategoryManager
+from LabeLMaker.Evaluate.data_loader import DataLoader
 from LabeLMaker.categorize_handler import StreamlitCategorizeHandler
 from LabeLMaker.evaluate_handler import StreamlitEvaluateHandler
-
-
+from LabeLMaker.utils.file_manager import FileManager
 
 
 class BaseHandler:
     """
     Provides common helper functionality for both evaluation and categorization workflows.
     """
-    def __init__(self, ui_helper: Any, azure_key: str = None) -> None:
+    def __init__(self, ui_helper: Any) -> None:
         """
-        Initialize with a UI helper instance and an optional azure_key.
+        Initialize with a UI helper instance.
         
         Args:
-            ui_helper: An object providing Streamlit helper methods.
-            azure_key: Optional Azure key for creating document analysis client.
+            ui_helper: An object providing Streamlit helper methods (e.g. file_uploader, write, etc.).
         """
         self.ui = ui_helper
-        self.file_manager = FileManager(azure_key)
+
+    def _load_data(self, uploaded_file) -> pd.DataFrame:
+        """
+        Loads CSV data by first converting the uploaded file to a DataFrame and then
+        initializing the DataLoader with that DataFrame.
+        """
+        try:
+            # Convert the file-like object into a DataFrame directly
+            df = pd.read_csv(uploaded_file)
+            # Initialize DataLoader with the DataFrame.
+            loader = DataLoader(dataframe=df)
+            return loader.df
+        except Exception as e:
+            raise Exception(f"Error processing CSV file: {e}")
 
     def _ensure_file(
         self,
@@ -51,6 +61,17 @@ class BaseHandler:
     ) -> Any:
         """
         Ensure file(s) are uploaded. If not, prompt the user.
+        
+        Args:
+            file: The current file variable (can be None).
+            upload_message: Message shown for the uploader.
+            file_types: Allowed file types.
+            key: A unique key for the uploader.
+            info_message: Message shown if no file is provided.
+            accept_multiple_files: Whether to accept multiples.
+        
+        Returns:
+            The file(s) uploaded or None if not provided.
         """
         if file is None:
             file = self.ui.file_uploader(
@@ -63,24 +84,16 @@ class BaseHandler:
                 self.ui.info(info_message)
         return file
 
-    def _load_data(self, uploaded_file: Any) -> pd.DataFrame:
-        """
-        Process an uploaded file into a DataFrame using the FileManager.
-        This function will work for the Streamlit and FastAPI contexts because
-        FileManager delegates to the correct underlying UploadManager.
-        """
-        try:
-            # For Streamlit use process_file_upload, which uses StreamlitUploadManager.
-            df, _ = self.file_manager.process_file_upload(uploaded_file)
-            return df
-        except Exception as e:
-            raise Exception(f"Error processing CSV file: {e}")
-
     def generate_docx_report_download(self, doc: Any) -> bytes:
         """
         Convert a DOCX document into bytes for download.
+        
+        Args:
+            doc: A DOCX document object.
+        
+        Returns:
+            Byte representation of the DOCX document.
         """
-        import io
         with io.BytesIO() as temp_stream:
             doc.save(temp_stream)
             temp_stream.seek(0)
@@ -92,73 +105,18 @@ class Evaluate(BaseHandler):
     """
     Wraps the evaluation workflow.
     """
-    def __init__(self, ui_helper: Any, azure_key: str = None) -> None:
-        super().__init__(ui_helper, azure_key=azure_key)
-        self.eval_handler = StreamlitEvaluateHandler(ui_helper, azure_key=azure_key)
-
-    def handle_evaluation(self) -> None:
+    def __init__(self, ui_helper: Any) -> None:
         """
-        Execute the evaluation workflow.
+        Initialize the evaluation handler.
+        
+        Args:
+            ui_helper: An object providing Streamlit UI methods.
         """
-        file = self._ensure_file(
-            file=None,
-            upload_message="Upload a CSV file for Evaluation",
-            file_types=["csv"],
-            key="eval_file_uploader_handler",
-            info_message="Please upload a CSV file to proceed.",
-        )
-        if file is None:
-            return
+        super().__init__(ui_helper)
+        self.eval_handler = StreamlitEvaluateHandler(ui_helper)
 
-        try:
-            df = self._load_data(file)
-        except Exception as error:
-            self.ui.error(f"Error reading file: {error}")
-            return
-
-        self.ui.subheader("CSV Preview:")
-        self.ui.write(df.head())
-        self.ui.write(f"Total rows in dataframe: {len(df)}")
-
-        # Let the user select the ground truth column and evaluation methods.
-        ground_truth_col = self.ui.selectbox(
-            "Select Ground Truth Column", df.columns.tolist(), key="eval_gt_column"
-        )
-        selected_methods = self.ui.multiselect(
-            "Select evaluation methods",
-            ["Zero Shot", "Few Shot", "Many Shot"],
-            default=["Zero Shot", "Few Shot", "Many Shot"],
-            key="eval_methods",
-        )
-
-        # Move the button to the UI layer.
-        if self.ui.button("Calculate Results", key="calc_results_button"):
-            # Use a spinner if desired.
-            with self.ui.spinner("Evaluating"):
-                try:
-                    # Call your evaluation function (i.e. a pure function)
-                    common_df, results, confusion_matrices = self.eval_handler.compare_methods(
-                        df, ground_truth_col, selected_methods
-                    )
-                    # Now display the results.
-                    for method, metrics in results.items():
-                        self.ui.subheader(method)
-                        self.ui.write(metrics)
-                    # Create and display a DOCX download button.
-                    docx_maker = StreamlitDocxCreator(results, confusion_matrices)
-
-                    doc = docx_maker.create_docx_report()
-
-                    docx_content = self.generate_docx_report_download(doc)
-                    self.ui.download_button(
-                        label="Download DOCX Report",
-                        data=docx_content,
-                        file_name="evaluation_report.docx",
-                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                    )
-                except Exception as e:
-                    self.ui.error(f"Error during evaluation: {e}")
-
+    def handle_evaluation(self):
+        self.eval_handler.handle_evaluation()
 
 # --- Categorization Handler for Streamlit UI ---
 class Categorize(BaseHandler):
@@ -174,7 +132,6 @@ class Categorize(BaseHandler):
             azure_key: Optional Azure key if needed.
         """
         super().__init__(ui_helper)
-        from LabeLMaker.utils.file_manager import FileManager
         self.fm = FileManager(azure_key)  # Used for any file operations
         self.config = Config
         self.cat_handler = StreamlitCategorizeHandler(azure_key=azure_key)
@@ -274,7 +231,7 @@ class Categorize(BaseHandler):
             params["examples_column"] = None if ex_col == "None" else ex_col
 
         # Category definition using CategoryManager.
-        from LabeLMaker.utils.category import CategoryManager
+        
         default_col = params.get("ground_truth_column") if params["mode"] == "Evaluation" else (params.get("examples_column") or "")
         default_categories = ""
         if default_col and default_col in df.columns:
@@ -285,12 +242,11 @@ class Categorize(BaseHandler):
                 self.ui.warning(
                     "There are more than 10 unique values in the column. Auto-population of categories may not be practical."
                 )
-        categories_dict, categories_with_descriptions = CategoryManager.define_categories(self.ui, "tab1", unique_values_str=default_categories)
+        categories_dict = CategoryManager.define_categories(self.ui, "tab1", unique_values_str=default_categories)
         params["categories_dict"] = categories_dict
-        params["categories_with_descriptions"] = categories_with_descriptions
         return params
 
-    def categorize_data(self, df: pd.DataFrame, params: dict, zs_prompty: Path, fs_prompty: Path) -> pd.DataFrame:
+    def categorize_with_streamlit(self, df: pd.DataFrame, params: dict, zs_prompty: Path, fs_prompty: Path) -> pd.DataFrame:
         """
         Delegate categorization to the underlying StreamlitCategorizeHandler.
         
@@ -316,16 +272,15 @@ class Categorize(BaseHandler):
             A tuple of (filenames, texts) extracted from the files.
         """
         filenames = []
-        texts = []
         document_analysis_client = Config.DOCUMENT_ANALYSIS_CLIENT if hasattr(Config, "AZURE_DOCAI_KEY") else None
         for file in uploaded_files:
-            upload_manager = StreamlitUploadManager(file, accept_multiple_files=True, document_analysis_client=document_analysis_client)
-            self.ui.spinner('Reading in Files...')
-            file_data, _ = upload_manager.process_upload()
-            if file_data is not None:
-                filenames.append(file.name)
-                texts.append(file_data)
-        return filenames, texts
+            filenames.append(file.name)
+
+        upload_manager = StreamlitUploadManager(uploaded_files, accept_multiple_files=True, document_analysis_client=document_analysis_client)
+        self.ui.spinner('Reading in Files...')
+        file_data, _ = upload_manager.process_upload()
+
+        return filenames, file_data
 
     def display_results(self, results: Any) -> None:
         """
@@ -349,10 +304,10 @@ class Categorize(BaseHandler):
         """
         file = self._ensure_file(
             file=None,
-            upload_message="Upload your CSV/XLSX file",
-            file_types=["csv", "xlsx"],
-            key="single_file_uploader",
-            info_message="Please upload a CSV or XLSX file to proceed.",
+            upload_message="Choose a CSV file for evaluation",
+            file_types=["csv"],
+            key="cat_file_uploader",  
+            info_message="Please upload a CSV file to proceed.",
         )
         if file is None:
             return
@@ -372,7 +327,7 @@ class Categorize(BaseHandler):
         self.ui.write(f"Uploaded file: {file.name}")
         ui_params = self.setup_workflow(df)
         if self.ui.button("Categorize", key="tab1_submit"):
-            merged_df = self.categorize_data(df, ui_params, zs_prompty, fs_prompty)
+            merged_df = self.categorize_with_streamlit(df, ui_params, zs_prompty, fs_prompty)
             csv_data = merged_df.to_csv(index=False).encode("utf-8")
             self.ui.download_button(
                 label="Download Results",
@@ -381,7 +336,7 @@ class Categorize(BaseHandler):
                 mime="text/csv",
             )
 
-    def handle_multiple_upload(self, zs_prompty: Path = Path(Config.ZS_PROMPTY), fs_prompty: Path = Path(Config.FS_PROMPTY)) -> None:
+    def handle_multiple_upload(self, zs_prompty: Path = Path(Config.ZS_PROMPTY)) -> None:
         """
         Handle multiple file uploads for categorization.
         
@@ -389,7 +344,6 @@ class Categorize(BaseHandler):
         
         Args:
             zs_prompty: Path to the Zero Shot prompty file.
-            fs_prompty: Path to the Few Shot prompty file.
         """
         if self.ui.button("Clear All", key="multi_clear_all"):
             for key in ("uploaded_files_multiple", "processed_files_multiple"):
@@ -411,31 +365,24 @@ class Categorize(BaseHandler):
                 self.ui.session_state["uploaded_files_multiple"] = files
                 file_names = [file.name for file in files] if isinstance(files, list) else [files.name]
                 self.ui.write(f"Uploaded files: {file_names}")
-                filenames, texts = self.process_multiple_files(files)
+                with self.ui.spinner("Reading files super fast... please be patient"):
+                    filenames, texts = self.process_multiple_files(files)
                 self.ui.session_state["processed_files_multiple"] = (filenames, texts)
 
         if "processed_files_multiple" in self.ui.session_state:
             filenames, texts = self.ui.session_state["processed_files_multiple"]
-            from LabeLMaker.utils.category import CategoryManager
-            categories_dict, examples = CategoryManager.define_categories(self.ui, "tab2", get_file_examples=True)
+
+            st.warning("We focus on using only the zero-shot modeling approach.")
+
+            categories_dict = CategoryManager.define_categories(self.ui, "tab2")
             self.ui.write("Texts (excerpts) to label:")
             for text in texts[:5]:
                 self.ui.write(text[:250])
             if self.ui.button("Categorize Multiple Files", key="tab2_submit"):
-                if examples:
-                    categorization_request = CategoryManager.create_request(filenames, texts, categories_dict, examples)
-                    from LabeLMaker.Categorize.fewshot import FewShotCategorizer
-                    few_shot_categorizer = FewShotCategorizer(prompty_path=fs_prompty, category_request=categorization_request)
-                    categorized_results = few_shot_categorizer.process()
-                else:
-                    categorization_request = CategoryManager.create_request(filenames, texts, categories_dict)
-                    from LabeLMaker.Categorize.zeroshot import ZeroShotCategorizer
-                    zero_shot_categorizer = ZeroShotCategorizer(prompty_path=zs_prompty, category_request=categorization_request)
-                    categorized_results = zero_shot_categorizer.process()
-                #self.display_results(categorized_results)
-                
-                #TODO make the next two lines their own function
-                json_data = json.dumps(categorized_results)
+                from LabeLMaker.multifile_categorize_handler import MultiFileStreamlitCategorizeHandler
+                handler = MultiFileStreamlitCategorizeHandler(azure_key=Config.AZURE_DOCAI_KEY)
+
+                json_data = handler.multifile_categorization(filenames=filenames, texts=texts, categories_dict=categories_dict, zs_prompty=zs_prompty)
 
                 st.download_button(
                     label="Download Results",

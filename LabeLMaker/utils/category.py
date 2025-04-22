@@ -6,7 +6,7 @@ from LabeLMaker.utils.file_manager import FileManager
 
 class CategoryManager:
     @staticmethod
-    def define_categories(ui_helper, key_prefix, unique_values_str=None, get_file_examples=False):
+    def define_categories(ui_helper, key_prefix, unique_values_str=None):
         """
         ui_helper: a helper object wrapping Streamlit calls so that category logic stays separate.
         """
@@ -31,7 +31,6 @@ class CategoryManager:
             unique_values = None
 
         categories_dict = {}
-        all_examples = []
 
         for i in range(num_categories):
             with ui_helper.expander(f"Category {i+1}", expanded=True):
@@ -52,24 +51,7 @@ class CategoryManager:
                 )
                 categories_dict[category_value.lower()] = category_description or ""
 
-                if get_file_examples:
-                    uploaded_files = ui_helper.file_uploader(
-                        "Upload example files for this category",
-                        type=["docx", "pdf"],
-                        accept_multiple_files=True,
-                        key=f"example_{i}",
-                    )
-                    if uploaded_files:
-                        fm = FileManager()
-                        filenames, texts = fm.process_multiple_files(uploaded_files)
-                        if texts:
-                            examples_for_category = [
-                                Example(text_with_label=text, label=category_value)
-                                for text in texts
-                            ]
-                            all_examples.extend(examples_for_category)
-
-        return categories_dict, all_examples
+        return categories_dict
 
     @staticmethod
     def create_request(index_list, df_text, categories_dict, examples=None):

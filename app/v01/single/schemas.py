@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field, field_validator
 from app.v01.single.validators import validate_input_bytes
 
 
+
 # TODO: Add this to the call
 class Mode(str, Enum):
     evaluation = "Evaluation"
@@ -28,18 +29,11 @@ class RequestInput(BaseModel):
     text_column: str
     ex_label_column: Optional[str] = None
     categories: List[CategoriesList]
-    mode: Mode
     model: Optional[List[Model]] = None
     few_shot_count: Optional[str] = "1"
     many_shot_train_ratio: Optional[str] = "0.8"
-    index_column: Optional[str] = None
-    text_column: str
-    ex_label_column: Optional[str] = None
-    categories: List[CategoriesList]
     mode: Mode
-    model: Optional[List[Model]] = None
-    few_shot_count: Optional[str] = "1"
-    many_shot_train_ratio: Optional[str] = "0.8"
+
 
 
 class FileInRequest(BaseModel):

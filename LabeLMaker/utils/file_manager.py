@@ -4,16 +4,20 @@ import tempfile
 import pandas as pd
 from aiweb_common.file_operations.upload_manager import (
     FastAPIUploadManager,
-    StreamlitUploadManager
-    )
+    StreamlitUploadManager,
+)
+from azure.ai.formrecognizer import DocumentAnalysisClient
+from azure.core.credentials import AzureKeyCredential
+
 from LabeLMaker_config.config import Config
+
 
 class FileManager:
     def __init__(self, azure_key=None):
         self.document_analysis_client = None
         if azure_key:
             try:
-                self.document_analysis_client = Config.document_analysis_client(azure_key)
+                self.document_analysis_client = Config.DOCUMENT_ANALYSIS_CLIENT
             except Exception as e:
                 raise Exception(f"Failed to create Document Analysis Client: {e}")
 
@@ -22,8 +26,8 @@ class FileManager:
         upload_manager = StreamlitUploadManager(
             uploaded_file, document_analysis_client=self.document_analysis_client
         )
-        df, extension = upload_manager.process_upload()
-        return df, extension
+        df, _ = upload_manager.process_upload()
+        return df
 
     def process_uploaded_file(self, background_tasks, uploaded_file, ext):
         # Process a single file using StreamlitUploadManager

@@ -7,6 +7,7 @@ from LabeLMaker.Categorize.categorizer import LabeLMaker
 
 class FewShotCategorizer(LabeLMaker):
     def __init__(self, prompty_path: Path, category_request: CategorizationRequest):
+        print("Initializing Few-shot categorizer")
         super().__init__(prompty_path, category_request)
         self._validate_examples()
 

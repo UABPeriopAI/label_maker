@@ -6,12 +6,12 @@ from aiweb_common.file_operations.file_config import CSV_EXPECTED_TYPE
 from aiweb_common.file_operations.upload_manager import FastAPIUploadManager
 from fastapi import APIRouter, BackgroundTasks, HTTPException
 
-from app.fastapi_config import LABEL_MAKER_META
+from app.fastapi_config import SINGLE_META
 from app.v01.single.schemas import RequestCategorization
-from LabeLMaker.workflow import FastAPICategorizeHandler
+from LabeLMaker.categorize_handler import FastAPICategorizeHandler
 from LabeLMaker_config.config import Config
 
-router = APIRouter(tags=["Labels"])
+router = APIRouter(tags=["Single"])
 
 
 def get_categorization_response(
@@ -42,7 +42,7 @@ def get_categorization_response(
     )
 
 
-@router.post("/cv/v01/labels/", **LABEL_MAKER_META)
+@router.post("/cv/v01/labels/single", **SINGLE_META)
 async def process_categorize(
     background_tasks: BackgroundTasks, request: RequestCategorization
 ) -> MSExcelResponse:
