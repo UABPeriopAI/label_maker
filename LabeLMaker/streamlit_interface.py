@@ -304,10 +304,10 @@ class Categorize(BaseHandler):
         """
         file = self._ensure_file(
             file=None,
-            upload_message="Choose a CSV file for evaluation",
-            file_types=["csv"],
+            upload_message="Choose a CSV or an Excel file for categorization",
+            file_types=["csv", "xlsx"],
             key="cat_file_uploader",  
-            info_message="Please upload a CSV file to proceed.",
+            info_message="Please upload a CSV or an Excel file to proceed.",
         )
         if file is None:
             return
