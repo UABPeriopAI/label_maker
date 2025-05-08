@@ -42,21 +42,14 @@ class Config:
                 scenarios.
             - FEW_SHOT_COUNT (int): Number of examples per category for few-shot learning.
 
-        Database Interface Definitions:
-            - DB_SERVER (str): The database server address.
-            - DB_NAME (str): Name of the database.
-            - DB_USER (str): Database user for authentication.
-            - DB_PASSWORD (str): Database password for authentication.
-            - GPT4_API_KEY (str): API key for GPT-4 (via Azure proxy).
-            - AZURE_DOCAI_KEY (str): API key for accessing Azure Document Analysis.
-            - AZURE_API_KEY (str): Alias for GPT4_API_KEY used with Azure services.
-
         Assets:
             - ASSETS_DIR (Path): Directory containing static assets (like prompt files).
             - ZS_PROMPTY (Path): File path for the zero-shot prompt template.
             - FS_PROMPTY (Path): File path for the few-shot prompt template.
 
         LLM Specific Settings:
+            - OPENAI_COMPATIBLE_KEY: your OpenAI compatible API key here
+            - OPENAI_COMPATIBLE_ENDPOINT: your OpenAI compatible endpoint here
             - LLM_INTERFACE (OpenAI): Configured OpenAI interface using the GPT-4 model.
             document_analysis_client (DocumentAnalysisClient): Configured Azure client for
                 document analysis.
