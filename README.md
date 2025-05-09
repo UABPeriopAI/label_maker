@@ -41,7 +41,12 @@
 
 
 ## Configuration
-Label Maker uses a configuration file (e.g., config.yaml) to control various label settings. In this file you can specify:
+Label Maker uses a configuration file (label_maker/LabeLMaker_config
+/config.py) to control various label settings. 
+
+In this file, you *must* specify an OpenAI-compatible key and endpoint, replacing the current placeholder empty strings. All other configuration elements are options.
+
+Foe example, in this file you can specify:
 
  - **Label types or classes**
  - **Formatting options**
